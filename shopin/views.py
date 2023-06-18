@@ -14,5 +14,5 @@ def home_page(request):
         i will not be using an HttpResponse 
         but a render 
     """
-    pass    
-
+    context = {} #context to display to the home page
+    return render(request, 'shopin/index.html', context=context)

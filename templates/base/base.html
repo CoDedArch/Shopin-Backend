@@ -1,0 +1,45 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock title%}</title>
+    {% tailwind_css %}
+</head>
+<body class="flex flex-col min-h-[100vh]">
+    <!-- group the interface into sections -->
+    <!-- header -->
+    <header class="flex flex-row items-center justify-between h-[60px] bg-header-300-300">
+        <div class="bg-black-400 xl:w-[24rem] m-0 w-[100px] md:w-[10em]
+        h-[40px]" 
+        id="logo-container">black</div>
+        <div class="bg-brown-400 xl:w-[58rem] w-[15rem] md:w-[40em] h-[40px]
+        flex" 
+        id="search-area">
+            <!-- following strictly the design -->
+            <!-- <div class="bg-black-400" id="sm-container">hi</div>
+            <div class="bg-black-400" id="xl-container">hi</div> -->
+            <div id="hold-category-selector">
+                <select name="all_categories" id="categorie_list"></select>
+            </div>
+            <div>
+                <form action="" id="form">
+                    <input class="xl:w-[50rem]" type="search" name="q" id="query">
+                </form>
+            </div>
+            <div id="hold-search-btn">
+                <button class="bg-slate-800 xl:h-[40px] xl:w-[70px] text-white">sub</button>
+            </div>
+        </div>
+        <div class="bg-black-400 xl:w-[39rem] w-[10rem] md:w-[29rem] h-[40px]" 
+        id="user-area" >black</div>
+    </header>
+    <!-- main -->
+    <main class="">
+        {%block content%} {%endblock content%}
+    </main>
+    <!-- footer -->
+    <footer class="bg-black-400 mt-auto h-[5em]">Footer</footer>
+</body>
+</html>

@@ -19,5 +19,6 @@ from django.urls import re_path, include
 
 urlpatterns = [
     re_path(r'admin/', admin.site.urls),
-    re_path(r'shopin/', include(shopin_url))
+    re_path(r'shopin/', include(shopin_url)),
+    re_path(r'__reload__/', include('django_browser_reload.urls'))
 ]
