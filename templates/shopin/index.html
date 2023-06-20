@@ -1,4 +1,52 @@
 {% extends 'base/base.html'%}
+{%block advertisement%} 
+<div class="bg-black-400 flex xl:w-[200px]">
+j
+</div>
+
+{%endblock%}
 {%block content%}
-<div class="bg-black-400">black</div>
+<div class="bg-black-400 xl:m-10 flex space-x-2 flex-wrap justify-center pt-[10px]">
+    {% for shop in top_rated %}
+    <!-- change of business logic. This div is to show list of only 5 rated -->
+        <div class="flex bg-{{shop.Color}}-400 basis-1/4 h-[20em] rounded-md p-[5px]">
+            <div class="bg-inherit font-bold text-white basis-1/2">
+                Picture url
+            </div>
+            <div class="bg-gray-400 basis-1/2 flex flex-col">
+                <p class="text-center font-bold">{{shop.Title}}</p>
+                <div class="bg-black-400 text-white flex flex-row justify-center xl:mb-[20px]">
+                    {{shop.Rating}}
+                </div>
+                <div class="">
+                    <p class="lg:mb-[5px] indent-[10px] text-justify">{{shop.Description}} size is {{length}}</p>
+                </div>
+                <div class="bg-black-400 flex flex-col justify-center basis-1/2 p-[10px] ">
+                    <div class="bg-gray-400 rounded-md h-[40px] font-bold mb-[10px]">Functional</div>
+                    <div class="flex flex-row justify-center">
+                    <button class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:bg-green-500 h-[30px] w-[100px] font-bold rounded-md bg-white text-green-500 hover:text-black-400 hover:shadow-md hover:shadow-emerald-300">Shop</button><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<div class="bg-black-400 xl:m-10 flex flex-row space-x-4 flex-wrap pt-[20px] pb-[20px] pl-[20px]">
+    {%for all_shops in shop_list %}
+    <div class="bg-{{all_shops.Colors}}-400 basis-[15em] h-[15em] rounded-xl flex flex-col">
+        <!-- two divs to repr thumnail and other features -->
+        <div class="bg-slate-600 basis-1/2 font-bold">
+            Thumnail here
+        </div>
+        <div class="bg-slate-600 basis-1/2">
+            <p class="bg-yellow-200 p-[5px]">{{all_shops.Title}}</p>
+            <p class="bg-green-300 truncate pl-[5px] font-semibold">{{all_shops.Moto}}</p>
+            <p class="bg-orange-300 truncate text-center font-semibold">{{all_shops.Rating}}</p>
+            <div class="bg-black-400 p-[10px] flex flex-row justify-center">
+                <button class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:bg-green-500 h-[30px] w-[100px] font-bold rounded-md bg-white text-green-500 hover:text-black-400 hover:shadow-md hover:shadow-emerald-300">Shop</button>
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+</div>
 {%endblock content%}
