@@ -1,11 +1,11 @@
-{% load static tailwind_tags %}
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} {% endblock title%}</title>
-    {% tailwind_css %}
+    <link rel="stylesheet" href="{%static 'css/tailwind.css'%}">
 </head>
 <body class="flex flex-col min-h-[100vh]">
     <!-- group the interface into sections -->
@@ -18,17 +18,17 @@
             <span class=" font-bold text-2xl text-green-500"> SHOPIN </span>
         </div>
         <div class="bg-brown-400 xl:w-[58rem] md:w-[40em] h-[40px]
-        flex w-[22em] sm:w-[30em]" 
+        flex w-[22em] sm:w-[30em] justify-between" 
         id="search-area">
             <!-- following strictly the design -->
             <!-- <div class="bg-black-400" id="sm-container">hi</div>
             <div class="bg-black-400" id="xl-container">hi</div> -->
             <div id="hold-category-selector">
-                <select name="all_categories" id="categorie_list"></select>
+                <select class="h-[40px] w-[40px] bg-orange-400" name="all_categories" id="categorie_list"></select>
             </div>
             <div>
                 <form action="" id="form">
-                    <input class="xl:w-[50rem] md:w-[28rem] w-[15em] sm:w-[21.6em] p-none" placeholder="Search here" type="search" name="q" id="query">
+                    <input class="xl:w-[51rem] md:w-[28rem] w-[15em] sm:w-[21.6em] p-4 h-[40px] outline outline-cyan-500" placeholder="Search here" type="search" name="q" id="query">
                 </form>
             </div>
             <div id="hold-search-btn">
@@ -40,12 +40,12 @@
             <!-- three divs -->
             <div class="flex bg-inherit xl:basis-1/5 items-end place
             hover:outline hover:outline-white hover:outline-1">
-                <select class="xl:h-[12px] xl:w-[10px] ml-[40px] hover:cursor-pointer" name="language" id="language-country">
+                <select class="xl:h-[1.5em] xl:w-[2.8em] ml-[40px] hover:cursor-pointer" name="language" id="language-country">
                     <option value="EN">EN</option>
                 </select>
             </div>
             <div class="bg-inherit xl:basis-1/5 pb-[4px] hover:outline hover:outline-white hover:outline-1 hover:underline text-white hover:cursor-pointer leading-tight">
-                <p class="leading-tight">
+                <p class="leading-tight pb-1">
                     <span class="tracking-tighter text-sm">Hello Sign in</span>
                     <span class="tracking-tighter leading-normal font-semibold">
                         Account and list
