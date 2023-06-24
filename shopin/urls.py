@@ -6,4 +6,5 @@ from django.urls import re_path
 from shopin import views as shopin_views
 urlpatterns = [
     re_path(r'^$', shopin_views.home_page, name='index'),
+    re_path(r'^(?P<shop_id>\d+)/$', shopin_views.view_a_shop, name='shop')
 ]
