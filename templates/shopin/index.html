@@ -1,12 +1,12 @@
 {% extends 'base/base.html'%}
 {%block advertisement%} 
-<div class="bg-black-400 flex xl:w-[200px]">
-j
+<div class="bg-black-400 xl:mx-[30em] xl:h-[10rem] text-white font-semibold text-center rounded-md">
+Advertisement
 </div>
 
 {%endblock%}
 {%block content%}
-<div class="bg-black-400 xl:m-10 flex space-x-2 flex-wrap justify-center pt-[10px]">
+<div class="bg-black-400 xl:m-10 flex space-x-5 flex-wrap justify-center pt-[10px]">
     {% for shop in top_rated %}
     <!-- change of business logic. This div is to show list of only 5 rated -->
         <div class="flex bg-{{shop.Color}}-400 basis-1/4 h-[20em] rounded-md p-[5px]">
