@@ -10,6 +10,7 @@
                 {% for sub_cat in value.subsections|slice:":4"%}
                     <div class="bg-indigo-400 rounded-md flex flex-col">
                             <div class="bg-yellow-400 h-[105px] font-bold">
+                                <!-- render the image here -->
                                 {{sub_cat.img}}
                             </div>
                             <div class="bg-yellow-400 h-[40px] font-bold">
@@ -20,7 +21,8 @@
             </div>
             {%else%}
             <div class="bg-black-400 text-white h-[310px]">
-                {{value}}
+                <!-- render the images here -->
+                {{value.img}}
             </div>
            {%endif%}
            <div class="text-blue-400 xl:mt-[20px]">
