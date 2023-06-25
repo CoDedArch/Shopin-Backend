@@ -96,7 +96,7 @@ def view_a_shop(request, shop_id):
     SD_SHOP = 'A very simple shopin template for ' +\
         'show casing a description to be in the name of laughter'
     list_of_shops = [{
-        id: 1,
+        'id': 1,
         'Title': 'Shopin 1',
         'Description': SD_SHOP + 'This is specific to ',
         'Location': 'Tumu',
@@ -107,39 +107,53 @@ def view_a_shop(request, shop_id):
             # inside this dictionary are categories
             # and the items that they can contain
             'first_cat': {
-                'subsections' : ['first', 'second',
-                                 'third', 'fourth',
-                                 'fifth', 'sixth']
+                'subsections' : [{'name': 'first',
+                                  'img': 'image1_url'},
+                                 {'name': 'second',
+                                  'img': 'image2_url'},
+                                 {'name': 'third',
+                                  'img': 'image3_url'},
+                                 {'name': 'fourth',
+                                  'img': 'image4_url'},
+                                  {'name': 'fifth',
+                                  'img': 'image5_url'}]
             },
-            'second_cat': 'second_cat',
-            'third_cat': ['cat1', 'cat2', 'cat3', 'cat4'],
-            'fourth_cat': 'Fourth_cat'
+            'second_cat': {
+                'name': 'second_cat'
+            },
+            'third_cat': ['item1', 'item2', 'item3', 'item4'],
+            'fouth': ['cat1', 'cat2', 'cat3', 'cat4'],
+            'fifth': ['cat1', 'cat2', 'cat3', 'cat4']
         }
     }, {
-        id: 2,
+        'id': 2,
         'Title': 'Shopin 2',
         'Description': SD_SHOP,
-        'Location': 'Tumu',
-        'Rating': '5 stars',
+        'Location': 'Accra',
+        'Rating': '4 stars',
         'Color': 'green',
         'Moto': 'Love over hate',
         'Category': {
             # inside this dictionary are categories
             # and the items that they can contain
-            'first_cat': {
+            'first_cat': 'furst_cat',
+            'second_cat': {
                 'subsections' : ['first', 'second',
                                  'third', 'fourth',
                                  'fifth', 'sixth']
             },
-            'second_cat': 'second_cat',
-            'third_cat': ['cat1', 'cat2', 'cat3', 'cat4'],
-            'fourth_cat': 'Fourth_cat'
+            'third_cat': {
+                'subsections' : ['first', 'second',
+                                 'third', 'fourth',
+                                 'fifth', 'sixth']
+            },
+            'fourth_cat': ['cat1', 'cat2', 'cat3', 'cat4']
         }
     }, {
-        id: 3,
+        'id': 3,
         'Title': 'Shopin 3',
         'Description': SD_SHOP,
-        'Location': 'Tumu',
+        'Location': 'Tarkwa',
         'Rating': '5 stars',
         'Color': 'yellow',
         'Moto': 'The Future is yours',
@@ -152,11 +166,15 @@ def view_a_shop(request, shop_id):
                                  'fifth', 'sixth']
             },
             'second_cat': 'second_cat',
-            'third_cat': ['cat1', 'cat2', 'cat3', 'cat4'],
-            'fourth_cat': 'Fourth_cat'
+            'third_cat': 'third_cat',
+            'fourth_cat': {
+                'subsections' : ['first', 'second',
+                                 'third', 'fourth',
+                                 'fifth', 'sixth']
+            }
         }
     }, {
-        id: 4,
+        'id': 4,
         'Title': 'Shopin 3',
         'Description': SD_SHOP,
         'Location': 'Tumu',
@@ -176,7 +194,7 @@ def view_a_shop(request, shop_id):
             'fourth_cat': 'Fourth_cat'
         }
     }, {
-        id: 5,
+        'id': 5,
         'Title': 'Shopin 3',
         'Description': SD_SHOP,
         'Location': 'Tumu',
@@ -196,7 +214,7 @@ def view_a_shop(request, shop_id):
             'fourth_cat': 'Fourth_cat'
         }
     }, {
-        id: 6,
+        'id': 6,
         'Title': 'Shopin 2',
         'Description': SD_SHOP,
         'Location': 'Tumu',
@@ -216,7 +234,7 @@ def view_a_shop(request, shop_id):
             'fourth_cat': 'Fourth_cat'
         }
     }, {
-        id: 7,
+        'id': 7,
         'Title': 'Shopin 2',
         'Description': SD_SHOP,
         'Location': 'Tumu',
@@ -240,10 +258,22 @@ def view_a_shop(request, shop_id):
         i'm gonna be doing a lot of
         complex operations
     """
+    content = None
     if request.method == 'POST':
         print('post method accessed')
     
     elif request.method == 'GET':
-        print('Get request')
+        for shop in list_of_shops:
+            if shop['id'] == int(shop_id):
+                content = shop
     
-    return render(request, 'shopin/shop_view.html')
+    # i wanna perform some pre logic before 
+    for category, value in content['Category'].items():
+        print(f'value is: {value}')
+        if 'subsections' in value:
+            for section in value['subsections']:
+                print(section)
+        
+
+    
+    return render(request, 'shopin/shop_view.html', content)
