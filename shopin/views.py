@@ -119,11 +119,21 @@ def view_a_shop(request, shop_id):
                                   'img': 'image5_url'}]
             },
             'second_cat': {
-                'name': 'second_cat'
+                'name': 'second_cat',
+                'img': 'second_image_url'
             },
-            'third_cat': ['item1', 'item2', 'item3', 'item4'],
-            'fouth': ['cat1', 'cat2', 'cat3', 'cat4'],
-            'fifth': ['cat1', 'cat2', 'cat3', 'cat4']
+            'third_cat': {
+                'name': 'third_cat',
+                'img': 'third_img_url'
+            },
+            'fouth': {
+                'name': 'fourth_cat',
+                'img': 'fourth_image_url'
+            },
+            'fifth': {
+                'name': 'fifth_cat',
+                'img': 'fifth_image_url'  
+            }
         }
     }, {
         'id': 2,
