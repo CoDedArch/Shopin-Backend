@@ -8,8 +8,13 @@
            {%if value.subsections%}
             <div class="grid grid-cols-2 gap-4 bg-black-400 h-[310px]">
                 {% for sub_cat in value.subsections|slice:":4"%}
-                    <div class="bg-indigo-400 rounded-md">
-                        {{sub_cat}}
+                    <div class="bg-indigo-400 rounded-md flex flex-col">
+                            <div class="bg-yellow-400 h-[105px] font-bold">
+                                {{sub_cat.img}}
+                            </div>
+                            <div class="bg-yellow-400 h-[40px] font-bold">
+                                {{sub_cat.name}}
+                            </div>
                     </div>
                 {% endfor%}
             </div>
