@@ -103,37 +103,42 @@ def view_a_shop(request, shop_id):
         'Rating': '5 stars',
         'Color': 'red',
         'Moto': 'Peace and Love',
-        'Category': {
+        'Sections': {
             # inside this dictionary are categories
             # and the items that they can contain
-            'first_cat': {
-                'subsections' : [{'name': 'first',
-                                  'img': 'image1_url'},
-                                 {'name': 'second',
-                                  'img': 'image2_url'},
-                                 {'name': 'third',
-                                  'img': 'image3_url'},
-                                 {'name': 'fourth',
-                                  'img': 'image4_url'},
-                                  {'name': 'fifth',
-                                  'img': 'image5_url'}]
+            'section1': {
+                'Category': {
+                    'first_cat': {
+                        'subsections' : [{'name': 'first',
+                                        'img': 'image1_url'},
+                                        {'name': 'second',
+                                        'img': 'image2_url'},
+                                        {'name': 'third',
+                                        'img': 'image3_url'},
+                                        {'name': 'fourth',
+                                        'img': 'image4_url'},
+                                        {'name': 'fifth',
+                                        'img': 'image5_url'}]
+                    },
+                    'second_cat': {
+                        'name': 'second_cat',
+                        'img': 'second_image_url'
+                    },
+                    'third_cat': {
+                        'name': 'third_cat',
+                        'img': 'third_img_url'
+                    },
+                    'fouth': {
+                        'name': 'fourth_cat',
+                        'img': 'fourth_image_url'
+                    },
+                    'fifth': {
+                        'name': 'fifth_cat',
+                        'img': 'fifth_image_url'  
+                    }
+                },
+                'color': 'black'
             },
-            'second_cat': {
-                'name': 'second_cat',
-                'img': 'second_image_url'
-            },
-            'third_cat': {
-                'name': 'third_cat',
-                'img': 'third_img_url'
-            },
-            'fouth': {
-                'name': 'fourth_cat',
-                'img': 'fourth_image_url'
-            },
-            'fifth': {
-                'name': 'fifth_cat',
-                'img': 'fifth_image_url'  
-            }
         }
     }, {
         'id': 2,
@@ -143,21 +148,26 @@ def view_a_shop(request, shop_id):
         'Rating': '4 stars',
         'Color': 'green',
         'Moto': 'Love over hate',
-        'Category': {
+        'Sections': {
             # inside this dictionary are categories
             # and the items that they can contain
-            'first_cat': 'furst_cat',
-            'second_cat': {
-                'subsections' : ['first', 'second',
-                                 'third', 'fourth',
-                                 'fifth', 'sixth']
+            'section1': {
+                'Category': {
+                    'first_cat': 'furst_cat',
+                    'second_cat': {
+                        'subsections' : ['first', 'second',
+                                        'third', 'fourth',
+                                        'fifth', 'sixth']
+                    },
+                    'third_cat': {
+                        'subsections' : ['first', 'second',
+                                        'third', 'fourth',
+                                        'fifth', 'sixth']
+                    },
+                    'fourth_cat': ['cat1', 'cat2', 'cat3', 'cat4']
+                },
+                'color': 'red'
             },
-            'third_cat': {
-                'subsections' : ['first', 'second',
-                                 'third', 'fourth',
-                                 'fifth', 'sixth']
-            },
-            'fourth_cat': ['cat1', 'cat2', 'cat3', 'cat4']
         }
     }, {
         'id': 3,
@@ -167,101 +177,26 @@ def view_a_shop(request, shop_id):
         'Rating': '5 stars',
         'Color': 'yellow',
         'Moto': 'The Future is yours',
-        'Category': {
+        'Sections': {
             # inside this dictionary are categories
             # and the items that they can contain
-            'first_cat': {
-                'subsections' : ['first', 'second',
-                                 'third', 'fourth',
-                                 'fifth', 'sixth']
+            'section1': {
+                'Category': {
+                    'first_cat': {
+                        'subsections' : ['first', 'second',
+                                        'third', 'fourth',
+                                        'fifth', 'sixth']
+                    },
+                    'second_cat': 'second_cat',
+                    'third_cat': 'third_cat',
+                    'fourth_cat': {
+                        'subsections' : ['first', 'second',
+                                        'third', 'fourth',
+                                        'fifth', 'sixth']
+                    }   
+                },
+                'color': 'yellow'
             },
-            'second_cat': 'second_cat',
-            'third_cat': 'third_cat',
-            'fourth_cat': {
-                'subsections' : ['first', 'second',
-                                 'third', 'fourth',
-                                 'fifth', 'sixth']
-            }
-        }
-    }, {
-        'id': 4,
-        'Title': 'Shopin 3',
-        'Description': SD_SHOP,
-        'Location': 'Tumu',
-        'Rating': '5 stars',
-        'Color': 'yellow',
-        'Moto': 'Be The Change',
-        'Category': {
-            # inside this dictionary are categories
-            # and the items that they can contain
-            'first_cat': {
-                'subsections' : ['first', 'second',
-                                 'third', 'fourth',
-                                 'fifth', 'sixth']
-            },
-            'second_cat': 'second_cat',
-            'third_cat': ['cat1', 'cat2', 'cat3', 'cat4'],
-            'fourth_cat': 'Fourth_cat'
-        }
-    }, {
-        'id': 5,
-        'Title': 'Shopin 3',
-        'Description': SD_SHOP,
-        'Location': 'Tumu',
-        'Rating': '5 stars',
-        'Color': 'yellow',
-        'Moto': 'Shop Right',
-        'Category': {
-            # inside this dictionary are categories
-            # and the items that they can contain
-            'first_cat': {
-                'subsections' : ['first', 'second',
-                                 'third', 'fourth',
-                                 'fifth', 'sixth']
-            },
-            'second_cat': 'second_cat',
-            'third_cat': ['cat1', 'cat2', 'cat3', 'cat4'],
-            'fourth_cat': 'Fourth_cat'
-        }
-    }, {
-        'id': 6,
-        'Title': 'Shopin 2',
-        'Description': SD_SHOP,
-        'Location': 'Tumu',
-        'Rating': '5 stars',
-        'Color': 'green',
-        'Moto': 'Shoping Made Easy',
-        'Category': {
-            # inside this dictionary are categories
-            # and the items that they can contain
-            'first_cat': {
-                'subsections' : ['first', 'second',
-                                 'third', 'fourth',
-                                 'fifth', 'sixth']
-            },
-            'second_cat': 'second_cat',
-            'third_cat': ['cat1', 'cat2', 'cat3', 'cat4'],
-            'fourth_cat': 'Fourth_cat'
-        }
-    }, {
-        'id': 7,
-        'Title': 'Shopin 2',
-        'Description': SD_SHOP,
-        'Location': 'Tumu',
-        'Rating': '5 stars',
-        'Color': 'green',
-        'Moto': 'Making the sales',
-        'Category': {
-            # inside this dictionary are categories
-            # and the items that they can contain
-            'first_cat': {
-                'subsections' : ['first', 'second',
-                                 'third', 'fourth',
-                                 'fifth', 'sixth']
-            },
-            'second_cat': 'second_cat',
-            'third_cat': ['cat1', 'cat2', 'cat3', 'cat4'],
-            'fourth_cat': 'Fourth_cat'
         }
     }]
     """
@@ -278,12 +213,5 @@ def view_a_shop(request, shop_id):
                 content = shop
     
     # i wanna perform some pre logic before 
-    for category, value in content['Category'].items():
-        print(f'value is: {value}')
-        if 'subsections' in value:
-            for section in value['subsections']:
-                print(section)
-        
-
-    
     return render(request, 'shopin/shop_view.html', content)
+
