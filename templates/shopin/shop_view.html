@@ -1,35 +1,72 @@
 {%extends 'base/base.html'%}
+{%load custom_filters%}
 {%block content%}
-<!-- for the mean time i'll use a flex box -->
-<section class="bg-black-400 mx-[13.5em] mt-0 grid grid-cols-4 p-[10px] gap-5">
-    {% for category, value in Category.items%}
-        <div class="bg-red-400 basis-[356px] h-[421px] xl:px-[5px]">
-           <p class="text-center font-bold"> {{category}}</p>
-           {%if value.subsections%}
-            <div class="grid grid-cols-2 gap-4 bg-black-400 h-[310px]">
-                {% for sub_cat in value.subsections|slice:":4"%}
-                    <div class="bg-indigo-400 rounded-md flex flex-col">
-                            <div class="bg-yellow-400 h-[105px] font-bold">
-                                <!-- render the image here -->
-                                {{sub_cat.img}}
+<!--each shop page would have it's individual sections-->
+    {%for section, section_value in Sections.items%}
+        {%if section_value.status.contains_category%}
+            <section class="bg-black-400 mb-10 mx-[13.5em] grid grid-cols-4 p-[10px] gap-5">
+                {% for category in section_value.Category|slice:":{{section_value.pagnation_unit}}"%}
+                    {%for category_prop, category_prop_value in category.items%}
+                        <div class="bg-red-400 basis-[356px] h-[421px] xl:px-[5px]">
+                                <p class="text-center font-bold"> {{category_prop}}</p>
+                        {%if category_prop_value.subsections%}
+                            <div class="grid grid-cols-2 gap-4 bg-black-400 h-[310px]">
+                                {% for sub_cat in category_prop_value.subsections|slice:":4"%}
+                                    <div class="bg-indigo-400 rounded-md flex flex-col">
+                                        <div class="bg-yellow-400 h-[105px] font-bold">
+                                            <!-- render the image here -->
+                                            {{sub_cat.img}}
+                                        </div>
+                                        <div class="bg-yellow-400 h-[40px] font-bold">
+                                            {{sub_cat.name}}
+                                        </div>
+                                    </div>
+                                {% endfor%}
                             </div>
-                            <div class="bg-yellow-400 h-[40px] font-bold">
-                                {{sub_cat.name}}
+                        {%else%}
+                            <div class="bg-black-400 text-white h-[310px]">
+                                <!-- render the images here -->
+                                {{category_prop_value.img}}
                             </div>
+                        {%endif%}
+                            <div class="text-blue-400 xl:mt-[20px]">
+                                see more ->
+                            </div>
+                        </div>
+                    {%endfor%}
+                {%endfor%}
+            </section>
+        {%elif section_value.status.contains_only_products%}
+            <section class="bg-black-400 mb-10 mx-[13.5em] p-[10px] flex flex-col">
+                <div class="bg-white p-[4px] flex flex-row">
+                    <h1 class="font-bold text-2xl">{{section_value.section_title}}</h1>
+                    <p class="text-blue-600 p-[4px] text-l font-bold">{{section_value.call_to_action}}</p>
+                </div>
+                {%for item in section_value.products%}
+                    <div class="flex flex-row space-x-2">
+                        {%if item|is_dict%}
+                        <!-- this section contains both thumb nails and product details -->
+                            <div class="w-[244px] h-[277px] bg-green-400 flex flex-col">
+                                <div class="bg-yellow-400 h-[200px] font-bold">{{item.img}}</div>
+                                <div class="bg-inherit h-[77px]">
+                                    {%if item.offer%}
+                                    <div class="bg-white flex space-x-2">
+                                        <p class="bg-red-600 text-white p-[2px]">{{item.offer}}</p> <div class="text-red-600 font-bold text-[13px] py-[4px]">{{item.offer_name}}</div> 
+                                    </div>
+                                    <p class="font-bold">{{item.price}}</p>
+                                    <p class="truncate">{{item.desc}}</p>
+                                    {%endif%}
+                                </div>
+                            </div>
+                        {%else%}
                     </div>
-                {% endfor%}
-            </div>
-            {%else%}
-            <div class="bg-black-400 text-white h-[310px]">
-                <!-- render the images here -->
-                {{value.img}}
-            </div>
-           {%endif%}
-           <div class="text-blue-400 xl:mt-[20px]">
-            see more ->
-           </div>
-           
-        </div>
+                    <!-- yes so this section just contains only the thumbnails -->
+                        <div class="w-[244px] h-[203px] bg-green-400">
+                            {{item}}
+                        </div>
+                    {%endif%}
+                {%endfor%}
+            </section>
+        {%endif%}
     {%endfor%}
-</section>
 {%endblock content%}

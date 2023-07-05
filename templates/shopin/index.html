@@ -1,9 +1,8 @@
 {% extends 'base/base.html'%}
 {%block advertisement%} 
-<div class="bg-black-400 flex xl:w-[200px]">
+<!-- <div class="bg-black-400 flex xl:w-[200px]">
 j
-</div>
-
+</div> -->
 {%endblock%}
 {%block content%}
 <div class="bg-black-400 xl:m-10 flex space-x-2 flex-wrap justify-center pt-[10px]">
@@ -15,11 +14,11 @@ j
             </div>
             <div class="bg-gray-400 basis-1/2 flex flex-col">
                 <p class="text-center font-bold">{{shop.Title}}</p>
-                <div class="bg-black-400 text-white flex flex-row justify-center xl:mb-[20px]">
+                <div class="bg-black-400 text-white flex flex-row justify-center xl:mb-[0px]">
                     {{shop.Rating}}
                 </div>
                 <div class="">
-                    <p class="lg:mb-[5px] indent-[10px] text-justify">{{shop.Description}} size is {{length}}</p>
+                    <p class="lg:mb-[5px] p-[4px] text-justify inline-block">{{shop.Description}} size is {{length}}</p>
                 </div>
                 <div class="bg-black-400 flex flex-col justify-center basis-1/2 p-[10px] ">
                     <div class="bg-gray-400 rounded-md h-[40px] font-bold mb-[10px]">Functional</div>

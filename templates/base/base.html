@@ -10,7 +10,7 @@
 <body class="flex flex-col min-h-[100vh]">
     <!-- group the interface into sections -->
     <!-- header -->
-    <header class="flex flex-row items-center justify-between h-[60px] bg-header-300-300 m">
+    <header class="flex flex-row items-center justify-between h-[60px] bg-header-300 ">
         <div class="flex bg-black-400 xl:w-[24rem] w-[100px] md:w-[10em]
         h-[40px] sm:w-[6em] text-white justify-center m-auto
         p-[2px] " 
@@ -60,9 +60,26 @@
         </div>
     </header>
     <!-- main -->
-    <main class="">
+    <main class="">        
+        <!-- position this absolute -->
+        <div class="bg-slate-400 m-0 xl:w-[20em] h-[15em] absolute right-[250px] flex flex-col justify-center items-center">
+            <p class="inline-block text-center font-bold">
+                <span class="">Welcome to Shopin</span> <br>
+                Login with your Shopin account Details 
+            </p><br>
+            <div>
+                <!-- contains the login and signup buttons as well as view account -->
+                <form action="">
+                    <button class="bg-indigo-400 font-bold w-[7em] h-[2.5em] rounded-md">Login</button>
+                    <button class="bg-red-400 font-bold w-[7em] h-[2.5em] rounded-md">Signup</button>
+                </form>
+                <!-- this is a link to dashboard of account -->
+                <p class="text-center mt-4 text-blue-700 font-bold"><a href="">View Account dashboard </a></p>
+            </div>
+        </div>
         {%block advertisement%} {%endblock%}
-        {%block content%} {%endblock content%}
+        {%block content%} 
+        {%endblock content%}
     </main>
     <!-- footer -->
     <footer class="flex flex-row bg-black-400 mt-auto h-[5em]">
