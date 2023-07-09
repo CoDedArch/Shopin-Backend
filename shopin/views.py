@@ -5,6 +5,7 @@
 """
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Shop
 
 
 # Create your views here.
@@ -19,56 +20,9 @@ def home_page(request):
         ' show casing a description to be in the name of laughter'
     LD_SHOP = 'A very simple shopin template for '
     'show casing a long description of a shop description'
-    list_of_shops = [{
-        'Title': 'Shopin 1',
-        'Description': SD_SHOP + 'This is specific to ',
-        'Location': 'Tumu',
-        'Rating': '5 stars',
-        'Color': 'red',
-        'Moto': 'Peace and Love'
-    }, {
-        'Title': 'Shopin 2',
-        'Description': SD_SHOP,
-        'Location': 'Tumu',
-        'Rating': '5 stars',
-        'Color': 'green',
-        'Moto': 'Love over hate'
-    }, {
-        'Title': 'Shopin 3',
-        'Description': SD_SHOP,
-        'Location': 'Tumu',
-        'Rating': '5 stars',
-        'Color': 'yellow',
-        'Moto': 'The Future is yours'
-    }, {
-        'Title': 'Shopin 3',
-        'Description': SD_SHOP,
-        'Location': 'Tumu',
-        'Rating': '5 stars',
-        'Color': 'yellow',
-        'Moto': 'Be The Change'
-    }, {
-        'Title': 'Shopin 3',
-        'Description': SD_SHOP,
-        'Location': 'Tumu',
-        'Rating': '5 stars',
-        'Color': 'yellow',
-        'Moto': 'Shop Right'
-    }, {
-        'Title': 'Shopin 2',
-        'Description': SD_SHOP,
-        'Location': 'Tumu',
-        'Rating': '5 stars',
-        'Color': 'green',
-        'Moto': 'Shoping Made Easy'
-    }, {
-        'Title': 'Shopin 2',
-        'Description': SD_SHOP,
-        'Location': 'Tumu',
-        'Rating': '5 stars',
-        'Color': 'green',
-        'Moto': 'Making the sales'
-    }]
+    
+    
+
     shop = list_of_shops[0]
     shop['Description'] += shop['Title']
     # i want to display a list of hostels which are top rated
