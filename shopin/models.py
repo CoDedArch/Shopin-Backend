@@ -4,6 +4,7 @@
 """
 from django.db import models
 from pathlib import Path
+import random
 import csv
 
 
@@ -13,6 +14,7 @@ class Shop(models.Model):
         contains functionalities of a Shop
     """
     PATH_TO_CSV = Path(__file__).resolve().parent.parent
+    top_rated = []
     Title = models.CharField(max_length=100, default='',
                              verbose_name='SHP_Name')
     Description = models.TextField(default='',
@@ -29,6 +31,8 @@ class Shop(models.Model):
     def __str__(self):
         # return the string representation for each repr
         return self.Title + '--' + self.Location
+    
+    __repr__ = __str__
 
     @classmethod
     def instantiate_SHP_from_csv(cls):
@@ -45,7 +49,32 @@ class Shop(models.Model):
                 Color=shop['Color'],
                 Moto=shop['Moto']
             )
+    # create an instance method 
+    def check_is_top_rated(self):
+        """checks whether an instance is top rated"""
+        if self.Rating == 5:
+            return True
+        return False
+    
+    # randomly generate the three top rated shop
+    @classmethod
+    def all_top_rated(cls):
+        """returns all top rated shop instances"""
+        return [
+            shop
+            for shop in cls.objects.all()
+            if shop.check_is_top_rated()
+        ]
+    @classmethod
+    def randomly_fetch_three_top_rated(cls):
+        """randomly pick three top rated 
+           from the all top rated shop
+        """
+        three_random_top_rated_shop = []
+        for count in range(3):
+            random_index = random.randint(0,2)
+            three_random_top_rated_shop.append(cls.all_top_rated()[random_index])
 
-
+        return three_random_top_rated_shop
 # instantiating
 # Shop.instantiate_SHP_from_csv()
