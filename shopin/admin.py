@@ -1,3 +1,5 @@
+"""This module helps me register to the admin interface"""
 from django.contrib import admin
-
-# Register your models here.
+from .models import Shop 
+# register a model
+admin.site.register(Shop)
