@@ -1,10 +1,8 @@
 """
     Module is tasked with handling the business
     logic for all the views that come to this site
-    MY VIEW IS VERY NOISE WITH UNWANTED
 """
 from django.shortcuts import render
-from django.http import HttpResponse
 from .models import Shop
 
 
@@ -16,31 +14,15 @@ def home_page(request):
         i will not be using an HttpResponse
         but a render
     """
-    SD_SHOP = 'A very simple shopin template for'+\
-        ' show casing a description to be in the name of laughter'
-    LD_SHOP = 'A very simple shopin template for '
-    'show casing a long description of a shop description'
-    
-    
+    # retrieve list of all shop in the database
+    list_of_shops = Shop.objects.all()
+    print(list_of_shops)
+    # get the top rated shops        
 
-    shop = list_of_shops[0]
-    shop['Description'] += shop['Title']
-    # i want to display a list of hostels which are top rated
-    for shop in list_of_shops:
-        # create a new item in a shop
-        rating = shop['Rating'].split(' ')
-        if int(rating[0]) != 5:
-            shop['is_top_rated'] = False
-        else:
-            shop['is_top_rated'] = True
-
-    # in other to ensure separation of concerns
-    # i will be getting each individual peace of data
-    top_rated = [shop for shop in list_of_shops if shop['is_top_rated']][:3]
     context = {'shop_list': list_of_shops,
-               'top_rated': top_rated,
-               'length':  # context to display to the home page
-               [len(shop['Description']) for shop in list_of_shops]}
+               'top_rated': Shop.randomly_fetch_three_top_rated(),
+               'length': 4
+    }
     return render(request, 'shopin/index.html', context=context)
 
 # i will need a view to handle specific view of a shop
