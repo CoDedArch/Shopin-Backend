@@ -39,13 +39,13 @@ def view_a_shop(request, shop_id):
         'Rating': '5 stars',
         'Color': 'red',
         'Moto': 'Peace and Love',
-        'Sections': {
+        'Sections':{
             # inside this dictionary are categories
             # and the items that they can contain
             'section1': {
-                'Category':[{
+                'Category': [{
                     'first_cat': {
-                        'subsections' : [{'name': 'first',
+                        'subsections': [{'name': 'first',
                                         'img': 'image1_url'},
                                         {'name': 'second',
                                         'img': 'image2_url'},
