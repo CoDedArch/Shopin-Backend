@@ -76,5 +76,36 @@ class Shop(models.Model):
             three_random_top_rated_shop.append(cls.all_top_rated()[random_index])
 
         return three_random_top_rated_shop
+
+
+
+def upload_image_to(instance, filename):
+    return 'images/%s/%s'%(instance.id, filename)
+    
+
 # instantiating
 # Shop.instantiate_SHP_from_csv()
+class Category(models.Model):
+    """This repr a category and some functionality that it can contain"""
+    name = models.CharField(max_length=60,
+                        verbose_name='Category')
+    # read more into working with image field
+    image = models.ImageField(upload_to=upload_image_to)
+    has_subsection = models.BooleanField(default=False)
+    section = models.OneToOneField('Section',on_delete=models.CASCADE)
+    # create a custom logic
+    @classmethod
+    def assign_to_nothing(cls):
+        if cls.section.contains_products_only:
+            # retrieve all products from products table
+            # assign to section
+            cls.section['products'] = []
+            
+
+# have the many relationship
+class Section(models.Model):
+    name = models.CharField(max_length=60,
+                            verbose_name='section_name') 
+    contains_products_only = models.BooleanField(default=False)
+    color = models.CharField(max_length=20)
+    pagnation_unit = models.SmallIntegerField()
