@@ -8,17 +8,17 @@ j
 <div class="bg-black-400 flex xl:m-10 space-x-4 flex-wrap p-[10px] justify-center">
     {% for shop in top_rated %}
     <!-- change of business logic. This div is to show list of only 5 rated -->
-        <div class="grid grid-cols-2 bg-{{shop.Color}}-400 basis-[356px] h-[421px] rounded-md p-[5px]">
+        <div class="grid grid-cols-2 bg-{{shop.color}}-400 basis-[356px] h-[421px] rounded-md p-[5px]">
             <div class="bg-inherit font-bold text-white">
                 Picture url
             </div>
             <div class="bg-gray-400 grid grid-rows-2">
-                <p class="text-center font-bold">{{shop.Title}}</p>
+                <p class="text-center font-bold">{{shop.title}}</p>
                 <div class="bg-black-400 text-white flex flex-row justify-center xl:mb-[0px]">
-                    {{shop.Rating}}
+                    {{shop.rating}}
                 </div>
                 <div class="">
-                    <p class="lg:mb-[5px] p-[4px] inline-block">{{shop.Description}}</p>
+                    <p class="lg:mb-[5px] p-[4px] inline-block">{{shop.description}}</p>
                 </div>
                 <div class="bg-black-400 flex flex-col justify-center basis-1/2 p-[10px] ">
                     <div class="bg-gray-400 rounded-md h-[40px] font-bold mb-[10px]">Functional</div>
@@ -30,17 +30,17 @@ j
         </div>
     {% endfor %}
 </div>
-<div class="bg-black-400 xl:m-10 flex flex-row space-x-4 flex-wrap pt-[20px] pb-[20px] pl-[20px]">
+<div class="bg-black-400 xl:m-10 flex flex-row space-x-4 flex-wrap pt-[20px] pb-[20px] pl-[20px] justify-center">
     {%for all_shops in shop_list %}
-    <div class="bg-{{all_shops.Colors}}-400 basis-[15em] h-[15em] rounded-xl flex flex-col">
+    <div class="bg-{{all_shops.Colors}}-400 basis-[15em] h-[15em] rounded-xl flex flex-col ">
         <!-- two divs to repr thumnail and other features -->
         <div class="bg-slate-600 basis-1/2 font-bold">
             Thumnail here
         </div>
         <div class="bg-slate-600 basis-1/2">
-            <p class="bg-yellow-200 p-[5px]">{{all_shops.Title}}</p>
-            <p class="bg-green-300 truncate pl-[5px] font-semibold">{{all_shops.Moto|truncatechars:20}}</p>
-            <p class="bg-orange-300 truncate text-center font-semibold">{{all_shops.Rating}}</p>
+            <p class="bg-yellow-200 p-[5px]">{{all_shops.title}}</p>
+            <p class="bg-green-300 truncate pl-[5px] font-semibold">{{all_shops.moto|truncatechars:20}}</p>
+            <p class="bg-orange-300 truncate text-center font-semibold">{{all_shops.rating}}</p>
             <div class="bg-black-400 p-[10px] flex flex-row justify-center">
                 <button class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:bg-green-500 h-[30px] w-[100px] font-bold rounded-md bg-white text-green-500 hover:text-black-400 hover:shadow-md hover:shadow-emerald-300">Shop</button>
             </div>
