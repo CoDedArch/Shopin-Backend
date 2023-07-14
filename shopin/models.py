@@ -42,17 +42,17 @@ class Shop(models.Model):
             list_of_shop = list(reader)
         for shop in list_of_shop:
             Shop.objects.create(
-                Title=shop['Title'],
-                Description=shop['Description'],
-                Location=shop['Location'],
-                Rating=int(shop['Rating']),
-                Color=shop['Color'],
-                Moto=shop['Moto']
+                title=shop['Title'],
+                description=shop['Description'],
+                location=shop['Location'],
+                rating=int(shop['Rating']),
+                color=shop['Color'],
+                moto=shop['Moto']
             )
     # create an instance method 
     def check_is_top_rated(self):
         """checks whether an instance is top rated"""
-        if self.Rating == 5:
+        if self.rating == 5:
             return True
         return False
     
@@ -67,7 +67,7 @@ class Shop(models.Model):
         ]
     @classmethod
     def randomly_fetch_three_top_rated(cls):
-        """randomly pick three top rated 
+        """randomly pick three top rated
            from the all top rated shop
         """
         three_random_top_rated_shop = []
@@ -77,7 +77,6 @@ class Shop(models.Model):
             three_random_top_rated_shop.append(cls.all_top_rated()[random_index])
 
         return three_random_top_rated_shop
-
 
 
 def upload_image_to(instance, filename):
@@ -111,13 +110,28 @@ class Category(models.Model):
                         verbose_name='Category')
     # read more into working with image field
     image = models.ImageField(upload_to=upload_image_to)
+    wants_subcategory = models.BooleanField(default=False)
 
     def __str__(self):
         return f'category-{self.name}'
     
+    def save(self, *args, **kwargs):
+        if self.pk and self.wants_subcategory and self.subcateogry_set.exists():
+            self.image = ''
 
+        super(Category, self).save(*args, **kwargs)
+    
 
 class SubCategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     image = models.ImageField(upload_to=upload_image_to)
+
+    def __str__(self) -> str:
+        return self.name
+    
+    def save(self, *args, **kwargs):
+        if self.category.wants_subcategory:
+            super(SubCategory, self).save(*args, **kwargs)
+        else:
+            raise ValueError("This cateogry does not support subcategories")
