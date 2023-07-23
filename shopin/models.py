@@ -89,17 +89,20 @@ def upload_image_to(instance, filename):
 class Section(models.Model):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     name = models.CharField(max_length=60,
-                            verbose_name='section_name')
-    contains_products_only = models.BooleanField(default=False)
-    contains_category = models.BooleanField()
+                            verbose_name='section_name', blank=True, null=True)
+    # contains_products_only = models.BooleanField(default=False)
+    contains_category = models.BooleanField(default=False)
     color = models.CharField(max_length=20)
     pagnation_unit = models.SmallIntegerField()
-    category = models.ManyToManyField('Category', blank=True)
+    category = models.ManyToManyField('Category')
 
+    @property
+    def contains_products_only(self):
+        return not self.contains_category
+    
     def save(self, *args, **kwargs):
-        self.contains_products_only = not self.category.exists()
+        super().save(*args, **kwargs)
         self.contains_category = self.category.exists()
-        super(Section, self).save(*args, **kwargs)
 
     
 
@@ -109,17 +112,11 @@ class Category(models.Model):
     name = models.CharField(max_length=60,
                         verbose_name='Category')
     # read more into working with image field
-    image = models.ImageField(upload_to=upload_image_to)
+    image = models.ImageField(upload_to=upload_image_to, null=True, blank= True)
     wants_subcategory = models.BooleanField(default=False)
 
     def __str__(self):
         return f'category-{self.name}'
-    
-    def save(self, *args, **kwargs):
-        if self.pk and self.wants_subcategory and self.subcateogry_set.exists():
-            self.image = ''
-
-        super(Category, self).save(*args, **kwargs)
     
 
 class SubCategory(models.Model):
