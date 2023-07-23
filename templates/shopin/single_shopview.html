@@ -2,20 +2,20 @@
 {%load custom_filters%}
 {%block content%}
 <!--each shop page would have it's individual sections-->
-    {%for section, section_value in Sections.items%}
-        {%if section_value.status.contains_category%}
+    {%for section in content.section_set.all%}
+    
+        {%if section.contains_category%}
             <section class="bg-black-400 mb-10 mx-[13.5em] grid grid-cols-4 p-[10px] gap-5">
-                {% for category in section_value.Category|slice:":{{section_value.pagnation_unit}}"%}
-                    {%for category_prop, category_prop_value in category.items%}
-                        <div class="bg-red-400 basis-[356px] h-[421px] xl:px-[5px]">
-                                <p class="text-center font-bold"> {{category_prop}}</p>
-                        {%if category_prop_value.subsections%}
+                {% for category in section.category.all|slice:":{{section.pagnation_unit}}"%}
+                       <div class="bg-red-400 basis-[356px] h-[421px] xl:px-[5px]">
+                            <p class="text-center font-bold"> {{category.name}}</p>
+                        {%if category.wants_subcategory%}
                             <div class="grid grid-cols-2 gap-4 bg-black-400 h-[310px]">
-                                {% for sub_cat in category_prop_value.subsections|slice:":4"%}
+                                {% for sub_cat in category.subcategory_set.all|slice:":4"%}
                                     <div class="bg-indigo-400 rounded-md flex flex-col">
                                         <div class="bg-yellow-400 h-[105px] font-bold">
                                             <!-- render the image here -->
-                                            {{sub_cat.img}}
+                                            {{sub_cat.image}}
                                         </div>
                                         <div class="bg-yellow-400 h-[40px] font-bold">
                                             {{sub_cat.name}}
@@ -26,20 +26,20 @@
                         {%else%}
                             <div class="bg-black-400 text-white h-[310px]">
                                 <!-- render the images here -->
-                                {{category_prop_value.img}}
+                                {{category.image}}
                             </div>
                         {%endif%}
                             <div class="text-blue-400 xl:mt-[20px]">
                                 see more ->
                             </div>
                         </div>
-                    {%endfor%}
                 {%endfor%}
             </section>
-        {%elif section_value.status.contains_only_products%}
+            <!-- stopped here with the development -->
+        {%elif section.contains_only_products%}
             <section class="bg-black-400 mb-10 mx-[13.5em] p-[10px] flex flex-col">
                 <div class="bg-white p-[4px] flex flex-row">
-                    <h1 class="font-bold text-2xl">{{section_value.section_title}}</h1>
+                    <h1 class="font-bold text-2xl">{{section.name}}</h1>
                     <p class="text-blue-600 p-[4px] text-l font-bold">{{section_value.call_to_action}}</p>
                 </div>
                 {%for item in section_value.products%}
