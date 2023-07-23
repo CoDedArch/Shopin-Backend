@@ -95,6 +95,10 @@ class Section(models.Model):
     color = models.CharField(max_length=20)
     pagnation_unit = models.SmallIntegerField()
     category = models.ManyToManyField('Category')
+    def __str__(self) -> str:
+        if self.name:
+            return f"section: {self.name} will contain only products: {self.contains_products_only}"
+        return f"section of:{self.shop.title} will contain only products:{self.contains_products_only}"
 
     @property
     def contains_products_only(self):
