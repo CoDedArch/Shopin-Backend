@@ -3,29 +3,43 @@
     logic for all the views that come to this site
 """
 from django.shortcuts import render
+from django.views import View
 from .models import Shop
 
 
 # Create your views here.
-def home_page(request):
-    """
-        Returns the home page for Shopin
-        Since this i will be loading a template
-        i will not be using an HttpResponse
-        but a render
-    """
-    # retrieve list of all shop in the database
-    list_of_shops = Shop.objects.all()
-    print(list_of_shops)
-    # get the top rated shops        
+# def home_page(request):
+#     """
+#         Returns the home page for Shopin
+#         Since this i will be loading a template
+#         i will not be using an HttpResponse
+#         but a render
+#     """
+#     # retrieve list of all shop in the database
+#     list_of_shops = Shop.objects.all()
+#     print(list_of_shops)
+#     # get the top rated shops        
 
-    context = {'shop_list': list_of_shops,
-               'top_rated': Shop.randomly_fetch_three_top_rated(),
-               'length': 4
-    }
-    return render(request, 'shopin/index.html', context=context)
+#     context = {'shop_list': list_of_shops,
+#                'top_rated': Shop.randomly_fetch_three_top_rated(),
+#                'length': 4
+#     }
+#     return render(request, 'shopin/index.html', context=context)
 
-# i will need a view to handle specific view of a shop
+# # i will need a view to handle specific view of a shop
+
+
+class ShopView(View):
+    """The View of all shops associated with a User """
+    def get(self, request):
+        list_of_shops = Shop.objects.all()
+
+        context = {
+            'shop_list': list_of_shops,
+            'top_rated': Shop.randomly_fetch_three_top_rated(),
+            'length': 4}
+        
+        return render(request, template_name= 'shopin/index.html', context=context)
 
 def view_a_shop(request, shop_id):
 
