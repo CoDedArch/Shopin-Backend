@@ -11,7 +11,7 @@
                             <p class="text-center font-bold"> {{category.name}}</p>
                         {%if category.wants_subcategory%}
                             <div class="grid grid-cols-2 gap-4 bg-black-400 h-[310px]">
-                                {% for sub_cat in category.subcategory_set.all|slice:":4"%}
+                                {%for sub_cat in category.subcategory_set.all|slice:":4"%}
                                     <div class="bg-indigo-400 rounded-md flex flex-col">
                                         <div class="bg-yellow-400 h-[105px] font-bold">
                                             <!-- render the image here -->
@@ -21,7 +21,7 @@
                                             {{sub_cat.name}}
                                         </div>
                                     </div>
-                                {% endfor%}
+                                {%endfor%}
                             </div>
                         {%else%}
                             <div class="bg-black-400 text-white h-[310px]">
