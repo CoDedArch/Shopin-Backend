@@ -12,6 +12,7 @@ Class-based views
 Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+    3. A shop would have to have specific products
 """
 from django.contrib import admin
 from shopin import urls as shopin_url
@@ -20,5 +21,6 @@ from django.urls import re_path, include
 urlpatterns = [
     re_path(r'admin/', admin.site.urls),
     re_path(r'shopin/', include(shopin_url)),
-    re_path(r'__reload__/', include('django_browser_reload.urls'))
+    re_path(r'__reload__/', include('django_browser_reload.urls')),
+    re_path(r'products/', include('Products.urls'))
 ]
