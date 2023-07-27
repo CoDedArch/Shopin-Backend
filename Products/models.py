@@ -1,6 +1,5 @@
 from django.db import models
 from shopin.models import Shop
-from customers.models import Customer
 
 # Create your models here.
 class Product(models.Model):
@@ -16,7 +15,7 @@ class Product(models.Model):
     # has a relationship with product
     shop = models.ForeignKey(Shop, related_name='shop_products', on_delete=models.CASCADE) 
     shopingCart = models.ForeignKey('ShoppingCart', on_delete=models.CASCADE, null=True)
-    order = models.ForeignKey('Order', on_delete=models.CASCADE)
+    order = models.ForeignKey('Orders', on_delete=models.CASCADE)
     def __str__(self) -> str:
         return (f'product - {self.name}')
 
@@ -24,11 +23,11 @@ class Product(models.Model):
 
 class ShoppingCart(models.Model):
     datecreated = models.DateField(auto_now_add=True)
-    customer = models.OneToOneField(Customer, on_delete= models.CASCADE)
+    customer = models.OneToOneField('customers.Customer', on_delete= models.CASCADE)
 
     def __str__(self) -> str: 
         return (f"{self.customer.first_name} - shopping Cart")
     
 class Orders(models.Model):
-    customer = models.ManyToManyField(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey('customers.Customer', on_delete=models.CASCADE)
 
