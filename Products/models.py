@@ -1,5 +1,6 @@
 from django.db import models
 from shopin.models import Shop
+
 # Create your models here.
 class Product(models.Model):
     name = models.CharField(max_length=100, verbose_name="product name")
@@ -10,10 +11,14 @@ class Product(models.Model):
     quantity = models.IntegerField(default=1, verbose_name='product quantity')
     warrantyears = models.IntegerField()
     created_date = models.DateField(auto_now_add=True)
-    
+
     # has a relationship with product
     shop = models.ForeignKey(Shop, related_name='shop_products', on_delete=models.CASCADE) 
-
+    shopingCart = models.ForeignKey('ShoppingCart', on_delete=models.CASCADE, null=True)
     def __str__(self) -> str:
         return (f'product - {self.name}')
-    
+
+
+
+class ShoppingCart(models.Model):
+    datecreated = models.DateField(auto_now_add=True)
