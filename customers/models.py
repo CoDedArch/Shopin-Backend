@@ -13,3 +13,5 @@ class Reviews(models.Model):
     reviewContent = models.TextField(verbose_name='content for review')
     rating = models.IntegerField()
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
+
