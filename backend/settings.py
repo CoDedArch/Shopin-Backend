@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'shopin',
     'tailwind',
     'django_browser_reload',
-    'Products.apps.ProductsConfig'
+    'Products',
+    'customers'
 ]
 
 MIDDLEWARE = [
