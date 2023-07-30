@@ -6,16 +6,16 @@ class Product(models.Model):
     name = models.CharField(max_length=100, verbose_name="product name")
     shortdescription = models.TextField(max_length=300, verbose_name="product short description")
     longdescription = models.TextField(max_length=300, verbose_name="product long description")
-    cost = models.DecimalField(max_digits=4, decimal_places=2)
-    status = models.CharField(max_length=100, verbose_name='product status')
+    cost = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=100, verbose_name='product status', default=None, blank=True, null=True)
     quantity = models.IntegerField(default=1, verbose_name='product quantity')
-    warrantyears = models.IntegerField()
+    warrantyears = models.IntegerField(blank=True)
     created_date = models.DateField(auto_now_add=True)
 
     # has a relationship with product
     shop = models.ForeignKey(Shop, related_name='shop_products', on_delete=models.CASCADE) 
-    shopingCart = models.ForeignKey('ShoppingCart', on_delete=models.CASCADE, null=True)
-    order = models.ForeignKey('Orders', on_delete=models.CASCADE)
+    shopingCart = models.ForeignKey('ShoppingCart', on_delete=models.CASCADE, null=True, blank=True)
+    order = models.ForeignKey('Order', on_delete=models.CASCADE, null=True, blank=True)
     def __str__(self) -> str:
         return (f'product - {self.name}')
 
@@ -23,11 +23,11 @@ class Product(models.Model):
 
 class ShoppingCart(models.Model):
     datecreated = models.DateField(auto_now_add=True)
-    customer = models.OneToOneField('customers.Customer', on_delete= models.CASCADE)
+    customer = models.OneToOneField('customers.Customer', default=None, on_delete= models.CASCADE, null=True)
 
     def __str__(self) -> str: 
         return (f"{self.customer.first_name} - shopping Cart")
     
-class Orders(models.Model):
-    customer = models.ForeignKey('customers.Customer', on_delete=models.CASCADE)
+class Order(models.Model):
+    customer = models.ForeignKey('customers.Customer',default=None, on_delete=models.CASCADE, null=True)
 

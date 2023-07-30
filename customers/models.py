@@ -6,6 +6,7 @@ from Products.models import Product
 class Customer(User, models.Model):
     address = models.CharField(max_length=100)
     phone = models.CharField(max_length=15)
+    
 
 
 class Reviews(models.Model):
@@ -13,5 +14,5 @@ class Reviews(models.Model):
     reviewContent = models.TextField(verbose_name='content for review')
     rating = models.IntegerField()
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
+    customer = models.ForeignKey(Customer,default=None, on_delete=models.CASCADE, null=True)
 
