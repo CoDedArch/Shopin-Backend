@@ -7,9 +7,9 @@ class Product(models.Model):
     shortdescription = models.TextField(max_length=300, verbose_name="product short description")
     longdescription = models.TextField(max_length=300, verbose_name="product long description")
     cost = models.DecimalField(max_digits=10, decimal_places=2)
-    status = models.CharField(max_length=100, verbose_name='product status', default=None, blank=True, null=True)
+    status = models.CharField(max_length=100, verbose_name='product status', blank=True)
     quantity = models.IntegerField(default=1, verbose_name='product quantity')
-    warrantyears = models.IntegerField(blank=True)
+    warrantyears = models.IntegerField(blank=True, default= 0)
     created_date = models.DateField(auto_now_add=True)
 
     # has a relationship with product
@@ -18,6 +18,14 @@ class Product(models.Model):
     order = models.ForeignKey('Order', on_delete=models.CASCADE, null=True, blank=True)
     def __str__(self) -> str:
         return (f'product - {self.name}')
+    
+
+    def save(self, *args, **kwargs):
+        if self.quantity:
+            self.status = 'in-stock'
+        self.status = 'out-of-stock'
+        super().save(*args, **kwargs)
+
 
 
 
@@ -30,4 +38,7 @@ class ShoppingCart(models.Model):
     
 class Order(models.Model):
     customer = models.ForeignKey('customers.Customer',default=None, on_delete=models.CASCADE, null=True)
+    
+    def __str__(self) -> str:
+        return (f'{self.customer.first_name} - Order')
 
