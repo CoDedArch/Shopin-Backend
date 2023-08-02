@@ -243,12 +243,16 @@ class SingleShopView(View):
     """Display the details of a single shop instance"""
     def get(self, request, shop_id):
         # retrieve the particular shop id
-        try:
-            shop = Shop.objects.get(pk = int(shop_id))
-            section = shop.section_set.all()
-            for sec in section:
-                print(sec)
-        except: 
-            print('shop id %s not found in db'% shop_id)
+        # try:
+        shop = Shop.objects.get(title = "CoDed")
+        section = shop.section_set.all()
+        for sec in section:
+            if sec.contains_category:
+                for category in sec.category.all():
+                    if category.wants_subcategory:
+                        for subcat in category.subcategory_set.all():
+                            print(subcat)
+        # except: 
+        #     print('shop id %s not found in db'% shop_id)
         return render(request=request, template_name='shopin/single_shopview.html', 
                       context= {'content': shop})

@@ -1,0 +1,130 @@
+body{
+    box-sizing: border-box;
+    background: linear-gradient(to bottom, rgb(228, 248, 138), rgb(194, 227, 7));
+    margin: 0;
+}
+
+main{
+    background-color: white;
+    margin: 50px 20em  60px;
+    padding: 5px;
+    color: rgb(127, 148, 9);
+    margin-bottom: 5px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.1);
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+    padding-right: 10em;  
+}
+a{
+    color:rgb(121, 158, 10);
+}
+header a{
+    text-decoration: none;
+    color: rgb(180, 211, 6);
+}
+
+h1{
+    font-size: 4.9em;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+h2{
+    margin-top: 0;
+    font-size: medium;
+    margin-left: 10px;
+}
+.logo{
+    letter-spacing: -7px;
+}
+.header-ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+ 
+
+.header-ul li {
+position: relative;
+padding-left: 20px;
+}
+ul{
+    color: rgb(109, 132, 7);
+}
+  
+li::before {
+content: '';
+position: absolute;
+top: 30%;
+left: 0;
+width: 0;
+height: 0;
+border-top: 4px solid transparent;
+border-bottom: 4px solid transparent;
+border-right: 8px solid rgb(180, 211, 6);
+transform: rotate(180deg);
+}
+
+.hero{
+    background-color:rgb(196, 240, 64);
+    padding: 40px;
+    box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.3);
+}
+
+.hero-h{
+    font-size: 3em;
+    letter-spacing: -4px;
+    line-height: 30px;
+    color:  rgb(109, 132, 7);
+}
+.below-hero-h{
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+    color:  rgb(83, 100, 6);
+}
+
+p{
+    word-spacing: 0.6em;
+    text-align: justify;
+    font-size: large;
+}
+
+.dif-p{
+    word-spacing: normal;
+}
+
+.list li{
+    font: large;
+}
+
+.list{margin-top: 0;}
+
+.archives-category{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    padding-right: 10em;
+    background-color: rgb(233, 250, 156);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.titles{
+    text-align: center;
+    font-weight: bolder;
+    font-size: 1.7em;
+    color:  rgb(109, 132, 7);
+    margin-bottom: 0;
+}
+
+.copy-right{
+    text-align: center;
+    font-size: small;
+    margin-top: 0;
+    word-spacing: normal;
+    color: rgb(109, 132, 7);
+}

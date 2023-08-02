@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from Products.models import Product
+
 # Create your models here.
 # customer will have to inherit from user model
 class Customer(User, models.Model):
@@ -10,9 +10,8 @@ class Customer(User, models.Model):
 
 
 class Reviews(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     reviewContent = models.TextField(verbose_name='content for review')
     rating = models.IntegerField()
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    customer = models.ForeignKey(Customer,default=None, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey('Products.Product', on_delete=models.CASCADE, null=True)
+    customer = models.ForeignKey(Customer,default=None, on_delete=models.CASCADE)
 
