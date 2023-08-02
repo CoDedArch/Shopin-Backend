@@ -36,6 +36,19 @@ class ShoppingCart(models.Model):
     def __str__(self) -> str: 
         return (f"{self.customer.first_name} - shopping Cart")
     
+    # i going to prevent the user from saving a cart which already exists
+    @classmethod
+    def prevent_double_carts(cls, cart_name):
+        if cart_name in cls.objects.all():
+            raise ValueError(f'{cart_name} already exists')
+        return False
+        
+    def save(self, *args, **kwargs):
+        cart_save_name = f'{self.customer.first_name} - shopping Cart'
+        if not ShoppingCart.prevent_double_carts(cart_name=cart_save_name):
+            super().save(*args, **kwargs)
+
+    
 class Order(models.Model):
     customer = models.ForeignKey('customers.Customer',default=None, on_delete=models.CASCADE, null=True)
     
