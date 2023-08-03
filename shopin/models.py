@@ -104,9 +104,10 @@ class Section(models.Model):
     def contains_products_only(self):
         return not self.contains_category
     
+        
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        self.contains_category = self.category.exists()
+        # self.contains_category = self.category.exists()
 
     
 
@@ -123,6 +124,14 @@ class Category(models.Model):
     def __str__(self):
         return f'category-{self.name}'
     
+    def save(self, *args, **kwargs):
+        if self.section.shop.title == self.shop.title: 
+            if self.section.contains_category:
+                super().save(*args, **kwargs)
+            else:
+                raise ValueError('Section should accept category before it can be saved')
+        else:
+            raise ValueError('You must select a section inside a shop')
 
 class SubCategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
