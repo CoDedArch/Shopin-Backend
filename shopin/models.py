@@ -94,7 +94,7 @@ class Section(models.Model):
     contains_category = models.BooleanField(default=False)
     color = models.CharField(max_length=20)
     pagnation_unit = models.SmallIntegerField()
-    category = models.ManyToManyField('Category')
+    
     def __str__(self) -> str:
         if self.name:
             return f"section: {self.name} will contain only products: {self.contains_products_only}"
@@ -118,6 +118,7 @@ class Category(models.Model):
     # read more into working with image field
     image = models.ImageField(upload_to=upload_image_to, null=True, blank= True)
     wants_subcategory = models.BooleanField(default=False)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f'category-{self.name}'
