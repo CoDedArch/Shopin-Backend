@@ -20,14 +20,30 @@ class Product(models.Model):
 
     def __str__(self) -> str:
         return (f'product - {self.name}')
-    
+
+    @property
+    def sectionBelongsToShop(self):
+          if self.shop.title == self.section.shop.title:
+              return True 
+          else:
+              raise ValueError('Section and Shop selected are not related')
+           
+    @property 
+    def sectionAcceptsProductOnly(self):
+         return (self.section.contains_products_only)
     
     def save(self, *args, **kwargs):
-        if self.quantity:
-            self.status = 'in-stock'
-        self.status = 'out-of-stock'
+        if self.quantity == 0:
+            self.status = 'out-of-stock'
+        self.status = 'in-stock'
 
         # before i save i need to know whether or not the section accepts only products and whether or not the section belongs to the given shop
+        if self.section:
+            if self.sectionBelongsToShop and self.sectionAcceptsProductOnly:
+                super().save(*args, **kwargs)
+            else:
+                raise ValueError('Section does not accept only products')
+            
         super().save(*args, **kwargs)
 
 
