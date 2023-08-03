@@ -6,7 +6,7 @@
     
         {%if section.contains_category%}
             <section class="bg-black-400 mb-10 mx-[13.5em] grid grid-cols-4 p-[10px] gap-5">
-                {% for category in section.category.all|slice:":{{section.pagnation_unit}}"%}
+                {% for category in section.category_set.all|slice:":{{section.pagnation_unit}}"%}
                        <div class="bg-red-400 basis-[356px] h-[421px] xl:px-[5px]">
                             <p class="text-center font-bold"> {{category.name}}</p>
                         {%if category.wants_subcategory%}
