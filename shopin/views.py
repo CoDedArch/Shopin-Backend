@@ -247,11 +247,13 @@ class SingleShopView(View):
         shop = Shop.objects.get(title = "CoDed")
         section = shop.section_set.all()
         for sec in section:
-            if sec.contains_category:
-                for category in sec.category.all():
-                    if category.wants_subcategory:
-                        for subcat in category.subcategory_set.all():
-                            print(subcat)
+            print(sec.category_set.all())
+            # if sec.contains_category:
+            #     for category in sec.category.all():
+            #         print(category)
+                    # if category.wants_subcategory:
+                    #     for subcat in category.subcategory_set.all():
+                    #         print(subcat)
         # except: 
         #     print('shop id %s not found in db'% shop_id)
         return render(request=request, template_name='shopin/single_shopview.html', 
