@@ -16,14 +16,18 @@ class Product(models.Model):
     shop = models.ForeignKey(Shop, related_name='shop_products', on_delete=models.CASCADE) 
     shopingCart = models.ForeignKey('ShoppingCart', on_delete=models.CASCADE, null=True, blank=True)
     order = models.ForeignKey('Order', on_delete=models.CASCADE, null=True, blank=True)
+    section = models.ForeignKey('shopin.Section', on_delete=models.CASCADE, null=True, blank=True)
+
     def __str__(self) -> str:
         return (f'product - {self.name}')
     
-
+    
     def save(self, *args, **kwargs):
         if self.quantity:
             self.status = 'in-stock'
         self.status = 'out-of-stock'
+
+        # before i save i need to know whether or not the section accepts only products and whether or not the section belongs to the given shop
         super().save(*args, **kwargs)
 
 
