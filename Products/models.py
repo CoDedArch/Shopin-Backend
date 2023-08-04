@@ -17,6 +17,7 @@ class Product(models.Model):
     shopingCart = models.ForeignKey('ShoppingCart', on_delete=models.CASCADE, null=True, blank=True)
     order = models.ForeignKey('Order', on_delete=models.CASCADE, null=True, blank=True)
     section = models.ForeignKey('shopin.Section', on_delete=models.CASCADE, null=True, blank=True)
+    category = models.ForeignKey("shopin.Category", on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self) -> str:
         return (f'product - {self.name}')
@@ -32,6 +33,13 @@ class Product(models.Model):
     def sectionAcceptsProductOnly(self):
          return (self.section.contains_products_only)
     
+    @property
+    def categoryBelongsToShop(self):
+        if self.category.shop.title == self.shop.title:
+            return True
+        else:
+            raise ValueError('category and shop are not related')
+    
     def save(self, *args, **kwargs):
         if self.quantity == 0:
             self.status = 'out-of-stock'
@@ -43,7 +51,9 @@ class Product(models.Model):
                 super().save(*args, **kwargs)
             else:
                 raise ValueError('Section does not accept only products')
-            
+        if self.category:
+            if self.categoryBelongsToShop:
+                super().save(*args, **kwargs)
         super().save(*args, **kwargs)
 
 
