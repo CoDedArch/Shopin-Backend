@@ -18,6 +18,7 @@ class Product(models.Model):
     order = models.ForeignKey('Order', on_delete=models.CASCADE, null=True, blank=True)
     section = models.ForeignKey('shopin.Section', on_delete=models.CASCADE, null=True, blank=True)
     category = models.ForeignKey("shopin.Category", on_delete=models.CASCADE, null=True, blank=True)
+    subcategory = models.ForeignKey('shopin.Subcategory', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self) -> str:
         return (f'product - {self.name}')
