@@ -128,6 +128,7 @@ class Category(models.Model):
     def categoryContainsImage(self):
         if not self.wants_subcategory:
             return (True if self.image else False)
+        return True
         
     
     def save(self, *args, **kwargs):
