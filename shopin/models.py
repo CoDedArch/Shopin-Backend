@@ -124,9 +124,18 @@ class Category(models.Model):
     def __str__(self):
         return f'category-{self.name}'
     
+    @property 
+    def categoryContainsImage(self):
+        if not self.wants_subcategory:
+            return (True if self.image else False)
+        
+    
     def save(self, *args, **kwargs):
         if self.section.shop.title == self.shop.title: 
             if self.section.contains_category:
+                # i need to make sure that the category contains images
+                if not self.categoryContainsImage:
+                    raise ValueError('Ensure that category contains an image')
                 super().save(*args, **kwargs)
             else:
                 raise ValueError('Section should accept category before it can be saved')
