@@ -40,6 +40,12 @@ class Product(models.Model):
             return True
         else:
             raise ValueError('category and shop are not related')
+    @property
+    def subcategoryBelongsToShop(self):
+        if self.subcategory.category.shop.title == self.shop.title:
+            return True
+        else:
+            raise ValueError('SubCategory and Shop selected are not related')
     
     def save(self, *args, **kwargs):
         if self.quantity == 0:
@@ -55,7 +61,13 @@ class Product(models.Model):
         if self.category:
             if self.categoryBelongsToShop:
                 super().save(*args, **kwargs)
+        
+        if self.subcategory:
+            if self.subcategoryBelongsToShop:
+                super().save(*args, **kwargs)
+
         super().save(*args, **kwargs)
+        
 
 
 
