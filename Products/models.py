@@ -3,6 +3,8 @@ from shopin.models import Shop
 
 # Create your models here.
 class Product(models.Model):
+    """Model for a Product object"""
+    
     name = models.CharField(max_length=100, verbose_name="product name")
     shortdescription = models.TextField(max_length=300, verbose_name="product short description")
     longdescription = models.TextField(max_length=300, verbose_name="product long description")
@@ -24,30 +26,42 @@ class Product(models.Model):
         return (f'product - {self.name}')
 
     @property
-    def sectionBelongsToShop(self):
+    def sectionBelongsToShop(self)-> True or ValueError:
+          """Checks if a section is associated with this shop"""
+
           if self.shop.title == self.section.shop.title:
               return True 
           else:
               raise ValueError('Section and Shop selected are not related')
            
     @property 
-    def sectionAcceptsProductOnly(self):
+    def sectionAcceptsProductOnly(self)-> bool:
+         """Checks if a section accepts only products"""
+
          return (self.section.contains_products_only)
     
     @property
-    def categoryBelongsToShop(self):
+    def categoryBelongsToShop(self)->True or ValueError:
+        """Checks if a category a product belongs to is associated with this Shop"""
+
         if self.category.shop.title == self.shop.title:
             return True
         else:
             raise ValueError('category and shop are not related')
+        
+
     @property
     def subcategoryBelongsToShop(self):
+        """Checks if the subcategory selected is associated with a shop"""
+
         if self.subcategory.category.shop.title == self.shop.title:
             return True
         else:
             raise ValueError('SubCategory and Shop selected are not related')
     
     def save(self, *args, **kwargs):
+        """Overrides the save method and saves a product"""
+
         if self.quantity == 0:
             self.status = 'out-of-stock'
         self.status = 'in-stock'
@@ -73,6 +87,8 @@ class Product(models.Model):
 
 
 class ShoppingCart(models.Model):
+    """Models the pushing cart in a real shop"""
+
     datecreated = models.DateField(auto_now_add=True)
     customer = models.OneToOneField('customers.Customer', default=None, on_delete= models.CASCADE, null=True)
 
@@ -82,17 +98,23 @@ class ShoppingCart(models.Model):
     # i going to prevent the user from saving a cart which already exists
     @classmethod
     def prevent_double_carts(cls, cart_name):
+        """Make sure that we don't have a repeated cart for a user"""
+        
         if cart_name in cls.objects.all():
             raise ValueError(f'{cart_name} already exists')
         return False
         
     def save(self, *args, **kwargs):
+        """Override the save method"""
+
         cart_save_name = f'{self.customer.first_name} - shopping Cart'
         if not ShoppingCart.prevent_double_carts(cart_name=cart_save_name):
             super().save(*args, **kwargs)
 
     
 class Order(models.Model):
+    """Models an Order Made on Products in an Ecommerce website"""
+
     customer = models.ForeignKey('customers.Customer',default=None, on_delete=models.CASCADE, null=True)
     
     def __str__(self) -> str:
