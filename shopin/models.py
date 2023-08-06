@@ -31,7 +31,7 @@ class Shop(models.Model):
     def __str__(self):
         # return the string representation for each repr
         return self.title + '--' + self.location
-    
+
     __repr__ = __str__
 
     @classmethod
@@ -49,13 +49,14 @@ class Shop(models.Model):
                 color=shop['Color'],
                 moto=shop['Moto']
             )
-    # create an instance method 
+    # create an instance method
+
     def check_is_top_rated(self):
         """checks whether an instance is top rated"""
         if self.rating == 5:
             return True
         return False
-    
+
     # randomly generate the three top rated shop
     @classmethod
     def all_top_rated(cls):
@@ -65,6 +66,7 @@ class Shop(models.Model):
             for shop in cls.objects.all()
             if shop.check_is_top_rated()
         ]
+
     @classmethod
     def randomly_fetch_three_top_rated(cls):
         """randomly pick three top rated
@@ -73,7 +75,7 @@ class Shop(models.Model):
         three_random_top_rated_shop = []
         # i will have to make sure that this refreshes after a day is over
         for count in range(3):
-            random_index = random.randint(0,2)
+            random_index = random.randint(0, 2)
             three_random_top_rated_shop.append(cls.all_top_rated()[random_index])
 
         return three_random_top_rated_shop
@@ -81,11 +83,13 @@ class Shop(models.Model):
 
 def upload_image_to(instance, filename):
     if instance.__class__.__name__ == 'Category':
-        return 'images/category/%s/%s'%(instance.name, filename)
+        return 'images/category/%s/%s' % (instance.name, filename)
     elif instance.__class__.__name__ == 'SubCategory':
-        return 'images/subcategory/%s/%s'%(instance.name, filename)
-    
+        return 'images/subcategory/%s/%s' % (instance.name, filename)
+
 # have the many relationship
+
+
 class Section(models.Model):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     name = models.CharField(max_length=60,
@@ -94,45 +98,44 @@ class Section(models.Model):
     contains_category = models.BooleanField(default=False)
     color = models.CharField(max_length=20)
     pagnation_unit = models.SmallIntegerField()
-    
+
     def __str__(self) -> str:
         if self.name:
-            return f"section: {self.name} will contain only products: {self.contains_products_only}"
-        return f"section of:{self.shop.title} will contain only products:{self.contains_products_only}"
+            return (f"section: {self.name} will contain " +
+                    "only products: {self.contains_products_only}")
+        return (f"section of:{self.shop.title} will contain " +
+                "only products:{self.contains_products_only}")
 
     @property
     def contains_products_only(self):
         return not self.contains_category
-    
-        
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         # self.contains_category = self.category.exists()
 
-    
 
 class Category(models.Model):
     """This repr a category and some functionality that it can contain"""
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     name = models.CharField(max_length=60,
-                        verbose_name='Category')
+                            verbose_name='Category')
     # read more into working with image field
-    image = models.ImageField(upload_to=upload_image_to, null=True, blank= True)
+    image = models.ImageField(upload_to=upload_image_to, null=True, blank=True)
     wants_subcategory = models.BooleanField(default=False)
     section = models.ForeignKey(Section, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f'category-{self.name}'
-    
-    @property 
+
+    @property
     def categoryContainsImage(self):
         if not self.wants_subcategory:
             return (True if self.image else False)
         return True
-        
-    
+
     def save(self, *args, **kwargs):
-        if self.section.shop.title == self.shop.title: 
+        if self.section.shop.title == self.shop.title:
             if self.section.contains_category:
                 # i need to make sure that the category contains images
                 if not self.categoryContainsImage:
@@ -143,6 +146,7 @@ class Category(models.Model):
         else:
             raise ValueError('You must select a section inside a shop')
 
+
 class SubCategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
@@ -150,7 +154,7 @@ class SubCategory(models.Model):
 
     def __str__(self) -> str:
         return self.name
-    
+
     def save(self, *args, **kwargs):
         if self.category.wants_subcategory:
             super(SubCategory, self).save(*args, **kwargs)
