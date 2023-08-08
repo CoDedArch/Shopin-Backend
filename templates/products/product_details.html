@@ -1,0 +1,20 @@
+{%extends 'base/base.html'%}
+
+{%block logo%} 
+{%if not logo%}<span class=" font-bold text-2xl text-green-500 "> {{shop}} </span>{%endif%}
+{%endblock%}
+{%block content%}
+    <section class="bg-blue-400 flex flex-row space-x-[100px] mx-[13.4em] mt-[20px] p-2">
+        <div class="bg-slate-300  flex flex-col">
+            <div class="bg-slate-600 w-[325px] h-[318px] rounded-lg">image</div>
+            <div class="bg-blue-600 flex flex-row space-x-3 p-2 justify-center">
+                {%for thumbnail in thumbnails%} 
+                    <div class="bg-slate-600 h-[68px] w-[68px] rounded-md">thumbnail</div>
+                {%endfor%}
+            </div>
+        </div>
+        <div class="bg-pink-400 w-[661px]">
+            
+        </div>
+    </section>
+{%endblock%}
