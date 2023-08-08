@@ -2,6 +2,8 @@ from django.db import models
 from shopin.models import Shop
 
 # Create your models here.
+def upload_product_image(instance, filename):
+    return f"images/products/{instance.name}/{filename}"
 
 
 class Product(models.Model):
@@ -21,6 +23,8 @@ class Product(models.Model):
                                    verbose_name='product quantity')
     warrantyears = models.IntegerField(blank=True, default=0)
     created_date = models.DateField(auto_now_add=True)
+    issponsored = models.BooleanField(default=False)
+    image = models.ImageField(upload_to=upload_product_image)
     # has a relationship with product
     shop = models.ForeignKey(Shop, related_name='shop_products',
                              on_delete=models.CASCADE)
