@@ -7,18 +7,17 @@
     <title>{% block title %} {% endblock title%}</title>
     <link rel="stylesheet" href="{%static 'css/tailwind.css'%}">
 </head>
-<body class="flex flex-col min-h-[100vh]">
+<body class="m-0 flex flex-col min-h-[100vh]">
     <!-- group the interface into sections -->
     <!-- header -->
-    <header class="flex flex-row items-center justify-between h-[60px] bg-header-300 ">
+    <header class=" flex flex-row items-center justify-between h-[4.5em] bg-header-300 ">
         <div class="flex bg-black-400 xl:w-[24rem] w-[100px] md:w-[10em]
-        h-[40px] sm:w-[6em] text-white justify-center m-auto
-        p-[2px] " 
+        h-[4.5em] sm:w-[6em] text-white justify-center m-auto p-[20px] " 
         id="logo-container">
             {%block logo%} {%endblock%}
         </div>
-        <div class="bg-brown-400 xl:w-[58rem] md:w-[40em] h-[40px]
-        flex w-[22em] sm:w-[30em] justify-between" 
+        <div class="bg-brown-400 xl:w-[58rem] md:w-[40em] h-[4.5em]
+        flex items-end w-[22em] sm:w-[30em] justify-between" 
         id="search-area">
             <!-- following strictly the design -->
             <!-- <div class="bg-black-400" id="sm-container">hi</div>
@@ -35,26 +34,26 @@
                 <button class="bg-red-800 h-[40px] w-[70px] text-white">sub</button>
             </div>
         </div>
-        <div class="bg-black-400 xl:w-[39rem] w-[6rem] md:w-[29rem] h-[40px] sm:w-[10em] flex xl:space-x-[20px] items-stretch" 
+        <div class="bg-black-400 xl:w-[39rem] w-[6rem] md:w-[29rem] h-[4.5em] sm:w-[10em] flex xl:space-x-[20px] items-stretch" 
         id="user-area" >
             <!-- three divs -->
-            <div class="flex bg-inherit xl:basis-1/5 items-end place
+            <div class="flex bg-inherit xl:basis-[2em] items-end place
             hover:outline hover:outline-white hover:outline-1">
                 <select class="xl:h-[1.5em] xl:w-[2.8em] ml-[40px] hover:cursor-pointer" name="language" id="language-country">
                     <option value="EN">EN</option>
                 </select>
             </div>
-            <div class="bg-inherit xl:basis-1/5 pb-[4px] hover:outline hover:outline-white hover:outline-1 hover:underline text-white hover:cursor-pointer leading-tight">
-                <p class="leading-tight pb-1">
+            <div class="bg-inherit xl:basis-[5em] p-0 hover:outline hover:outline-white hover:outline-1 hover:underline text-white hover:cursor-pointer leading-tight">
+                <p class="">
                     <span class="tracking-tighter text-sm">Hello Sign in</span>
-                    <span class="tracking-tighter leading-normal font-semibold">
-                        Account and list
+                    <span class="tracking-tighter leading-normal font-bold">
+                        Account & List
                     </span>
                 </p>
             </div>
             <div class="bg-green-500 pt-[9px] pl-[9px] xl:basis-1/4 hover:outline hover:outline-white hover:outline-1 hover:underline">
                 <p class="font-bold lg:leading-tight">Returns & Orders</p></div>
-            <div class="bg-inherit xl:basis-1/5 text-center p-[10px]">
+            <div class="bg-inherit xl:basis-[20px] text-center p-[10px]">
                 <p class="font-bold text-white uppercase">Cart</p>
             </div>
         </div>
