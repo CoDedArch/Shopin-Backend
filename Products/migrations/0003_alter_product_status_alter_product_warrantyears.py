@@ -19,5 +19,5 @@ class Migration(migrations.Migration):
             model_name='product',
             name='warrantyears',
             field=models.IntegerField(blank=True, default=0),
-        ),
+        ), 
     ]
