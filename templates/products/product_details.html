@@ -4,7 +4,7 @@
 {%if not logo%}<span class=" font-bold text-2xl text-green-500 "> {{shop}} </span>{%endif%}
 {%endblock%}
 {%block content%}
-    <section class="bg-blue-400 flex flex-row space-x-[100px] mx-[13.4em] mt-[20px] p-2">
+    <section class="bg-blue-400 flex flex-row space-x-[100px] mx-[25.4em] max-w-[1000px] min-w-[835px] mt-[20px] p-2">
         <div class="bg-slate-300  flex flex-col">
             <div class="bg-slate-600 w-[325px] h-[318px] rounded-lg">image</div>
             <div class="bg-blue-600 flex flex-row space-x-3 p-2 justify-center">
@@ -16,7 +16,7 @@
         <div class="bg-pink-400 p-3 w-[661px]">
             <p class="text-orange-300 font-bold">{{details.shop.title}} SHOP</p>
             <p class="bg-blue-400"><span class="font-bold text-2xl">{{details.name |title}}</span> <br> 
-                <pre>Brand|{{details.brand.name}}</pre></p>
+                <pre class="text-sm">Brand| <span class="">{{details.brand.brand}}</span></pre></p>
             <p class="bg-slate-600 text-white mt-[20px] {%if details.shortdescription|length > 100%} text-sm {%else%}text-md{%endif%}">{{details.shortdescription |title}}</p>
          
             <div class="bg-slate-300 mt-[20px]">
