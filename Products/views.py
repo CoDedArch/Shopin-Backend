@@ -41,6 +41,12 @@ class ViewCategoryProducts(View):
     
 class ProductDetailView(View):
     def get(self, request, shop_name, product_name):
-        """Return a Template with the details of a product"""
+        """Return a Template with the details of a product"""        
+        product = Product.objects.get(name = product_name)
 
-        return render(request=request, template_name='product/product_details', context={})
+        return render(request=request, template_name='products/product_details.html',
+                      context={'shop': shop_name,
+                                'details': product,
+                                'thumbnails': [1,2,3,4],
+                                'description_words': product.shortdescription.split() 
+                     })
