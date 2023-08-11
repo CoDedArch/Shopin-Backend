@@ -20,7 +20,7 @@
                                 <span class="text-2xl text-green-600">{{product.discounted_amount}}</span> 
                                 <span>Ori price:{{product.price}}</span>
                             {%else%}
-                            <span>{{product.price}}</span>
+                            <span class="text-green-500 text-2xl">{{product.price}}</span>
                             {%endif%}
                             <br>
                             {%if product.coupon%}

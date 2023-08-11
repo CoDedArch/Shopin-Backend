@@ -3,6 +3,7 @@ from shopin.models import Shop
 
 # Create your models here.
 def upload_product_image(instance, filename):
+    """Returns the path to upload the product image to"""
     return f"images/products/{instance.name}/{filename}"
 
 
@@ -13,7 +14,7 @@ class Product(models.Model):
     shortdescription = models.TextField(max_length=300,
                                         verbose_name="product short " +
                                         "description")
-    longdescription = models.TextField(max_length=300,
+    longdescription = models.TextField(max_length=3000,
                                        verbose_name="product long description")
     cost = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=100,
@@ -147,3 +148,8 @@ class Order(models.Model):
 
     def __str__(self) -> str:
         return (f'{self.customer.first_name} - Order')
+    
+
+class Brand(models.Model):
+    brand = models.CharField(max_length=100, verbose_name='brand_name')
+    product = models.OneToOneField(Product,on_delete=models.CASCADE)

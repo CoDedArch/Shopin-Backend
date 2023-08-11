@@ -15,12 +15,11 @@ Including another URLconf
     3. A shop would have to have specific products
 """
 from django.contrib import admin
-from shopin import urls as shopin_url
 from django.urls import re_path, include
 
 urlpatterns = [
     re_path(r'admin/', admin.site.urls),
-    re_path(r'shopin/', include(shopin_url)),
+    re_path(r'shopin/', include('shopin.urls')),
     re_path(r'__reload__/', include('django_browser_reload.urls')),
     re_path(r'products/(?P<shop_name>\w+)/', include('Products.urls'))
 ]

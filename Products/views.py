@@ -48,5 +48,4 @@ class ProductDetailView(View):
                       context={'shop': shop_name,
                                 'details': product,
                                 'thumbnails': [1,2,3,4],
-                                'description_words': product.shortdescription.split() 
                      })
