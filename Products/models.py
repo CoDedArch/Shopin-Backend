@@ -4,7 +4,15 @@ from shopin.models import Shop
 # Create your models here.
 def upload_product_image(instance, filename):
     """Returns the path to upload the product image to"""
+    
     return f"images/products/{instance.name}/{filename}"
+
+
+class Brand(models.Model):
+    brand = models.CharField(max_length=100, verbose_name='brand_name')
+
+    def __str__(self) -> str:
+        return ('Brand: %s'%(self.brand))
 
 
 class Product(models.Model):
@@ -43,6 +51,7 @@ class Product(models.Model):
     subcategory = models.ForeignKey('shopin.Subcategory',
                                     on_delete=models.CASCADE,
                                     null=True, blank=True)
+    brand = models.ForeignKey('Brand', on_delete=models.CASCADE, null=True)
 
     def __str__(self) -> str:
         return (f'product - {self.name}')
@@ -150,6 +159,3 @@ class Order(models.Model):
         return (f'{self.customer.first_name} - Order')
     
 
-class Brand(models.Model):
-    brand = models.CharField(max_length=100, verbose_name='brand_name')
-    product = models.OneToOneField(Product,on_delete=models.CASCADE)

@@ -15,7 +15,8 @@
         </div>
         <div class="bg-pink-400 p-3 w-[661px]">
             <p class="text-orange-300 font-bold">{{details.shop.title}} SHOP</p>
-            <p class="bg-blue-400"><span class="font-bold text-2xl">{{details.name |title}}</span> <br> Brand</p>
+            <p class="bg-blue-400"><span class="font-bold text-2xl">{{details.name |title}}</span> <br> 
+                <pre>Brand|{{details.brand.name}}</pre></p>
             <p class="bg-slate-600 text-white mt-[20px] {%if details.shortdescription|length > 100%} text-sm {%else%}text-md{%endif%}">{{details.shortdescription |title}}</p>
          
             <div class="bg-slate-300 mt-[20px]">
