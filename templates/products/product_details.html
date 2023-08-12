@@ -3,6 +3,7 @@
 {%block logo%} 
 {%if not logo%}<span class=" font-bold text-2xl text-green-500 "> {{shop}} </span>{%endif%}
 {%endblock%}
+{%block justify%}'justify-center'{%endblock%}
 {%block content%}
     <section class="bg-blue-400 flex flex-row space-x-[100px] mx-[25.4em] max-w-[1000px] min-w-[835px] mt-[20px] p-2">
         <div class="bg-slate-300  flex flex-col">
@@ -32,7 +33,7 @@
                     <div class="inline-block">0</div>
                     <div class="text-2xl text-orange-300 inline-block cursor-pointer">+</div>
                 </div>
-                <button class="transition bg-orange-500 hover:opacity-80 h-[50px] w-[14em] ml-[20px] text-white rounded-xl">Add to cart</button>
+                <button class="transition bg-orange-500 hover:opacity-80 h-[50px] w-[14em] ml-[20px] text-white rounded-xl font-bold">Add to cart</button>
             </div>
         </div>
     </section>

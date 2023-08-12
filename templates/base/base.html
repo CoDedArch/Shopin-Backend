@@ -7,7 +7,7 @@
     <title>{% block title %} {% endblock title%}</title>
     <link rel="stylesheet" href="{%static 'css/tailwind.css'%}">
 </head>
-<body class="m-0 flex flex-col min-h-[100vh]">
+<body class="m-0 flex flex-col min-h-[100vh] {%block justify%} {%endblock%}">
     <!-- group the interface into sections -->
     <!-- header -->
     <header class=" flex flex-row items-center justify-between h-[4.5em] bg-header-300 mb-3">
@@ -43,7 +43,7 @@
                     <option value="EN">EN</option>
                 </select>
             </div>
-            <div class="bg-inherit xl:basis-[5em] p-0 hover:outline hover:outline-white hover:outline-1 hover:underline text-white hover:cursor-pointer leading-tight">
+            <div class="bg-inherit max-w-[100px] min-w-[90px] xl:basis-[5em] p-0 hover:outline hover:outline-white hover:outline-1 hover:underline text-white hover:cursor-pointer leading-tight">
                 <p class="">
                     <span class="tracking-tighter text-sm">Hello Sign in</span>
                     <span class="tracking-tighter leading-normal font-bold">
@@ -51,10 +51,10 @@
                     </span>
                 </p>
             </div>
-            <div class="bg-green-500 pt-[9px] pl-[9px] xl:basis-1/4 hover:outline hover:outline-white hover:outline-1 hover:underline">
+            <div class="bg-green-500 pt-[9px] min-w-[90px] max-w-[100px] pl-[9px] xl:basis-1/4 hover:outline hover:outline-white hover:outline-1 hover:underline">
                 <p class="font-bold lg:leading-tight">Returns & Orders</p></div>
-            <div class="bg-inherit xl:basis-[20px] text-center p-[10px]">
-                <p class="font-bold text-white uppercase">Cart</p>
+            <div class="bg-inherit max-w-[100px] min-w-[50px] xl:basis-[20px] p-[10px]">
+                <p class="font-bold text-white text-center uppercase">Cart</p>
             </div>
         </div>
     </header>
