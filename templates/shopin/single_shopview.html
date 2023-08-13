@@ -5,9 +5,10 @@
     {%for section in content.section_set.all%}
     
         {%if section.contains_category%}
-            <section class="bg-black-400 mb-10 mx-[13.5em] grid grid-cols-4 p-[10px] gap-5">
+        <!-- convert into a flex box -->
+            <section class="bg-black-400 mb-10 mx-[12em] justify-center max-w-[1441px] flex flex-row p-[10px] space-x-5">
                 {% for category in section.category_set.all|slice:":{{section.pagnation_unit}}"%}
-                       <div class="bg-red-400 basis-[356px] h-[421px] xl:px-[5px]">
+                       <div class="bg-red-400 max-w-[356px] min-w-[356px] h-[421px] xl:px-[5px]">
                             <p class="text-center font-bold"> {{category.name}}</p>
                         {%if category.wants_subcategory%}
                             <div class="grid grid-cols-2 gap-4 bg-black-400 h-[310px]">
