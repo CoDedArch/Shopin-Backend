@@ -102,9 +102,9 @@ class Section(models.Model):
     def __str__(self) -> str:
         if self.name:
             return (f"section: {self.name} will contain " +
-                    "only products: {self.contains_products_only}")
+                    f"only products: {self.contains_products_only}")
         return (f"section of:{self.shop.title} will contain " +
-                "only products:{self.contains_products_only}")
+                f"only products:{self.contains_products_only}")
 
     @property
     def contains_products_only(self):
