@@ -34,6 +34,8 @@ class Product(models.Model):
     created_date = models.DateField(auto_now_add=True)
     issponsored = models.BooleanField(default=False)
     image = models.ImageField(upload_to=upload_product_image)
+    discount_amount = models.DecimalField(max_digits=4, decimal_places=2, null=True, default= 0.00)
+    discount_rate = models.PositiveSmallIntegerField(null=True, default=0.00)
     # has a relationship with product
     shop = models.ForeignKey(Shop, related_name='shop_products',
                              on_delete=models.CASCADE)
@@ -56,6 +58,12 @@ class Product(models.Model):
     def __str__(self) -> str:
         return (f'product - {self.name}')
 
+    @property
+    def compute_discounted_cost(self):
+        """Returns the cost of a product after computing the rate of discount on the original cost"""
+        convert_rate = self.discount_rate/100
+        discount = self.cost - (convert_rate * self.cost)
+        return discount
     @property
     def sectionBelongsToShop(self) -> True or ValueError:
         """Checks if a section is associated with this shop"""
