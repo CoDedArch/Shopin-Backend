@@ -1,5 +1,6 @@
 from django.db import models
 from shopin.models import Shop
+import decimal
 
 # Create your models here.
 def upload_product_image(instance, filename):
@@ -34,7 +35,7 @@ class Product(models.Model):
     created_date = models.DateField(auto_now_add=True)
     issponsored = models.BooleanField(default=False)
     image = models.ImageField(upload_to=upload_product_image)
-    discount_amount = models.DecimalField(max_digits=4, decimal_places=2, null=True, default= 0.00)
+    discount_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, default= 0.00, verbose_name='amount payable after discount')
     discount_rate = models.PositiveSmallIntegerField(null=True, default=0.00)
     # has a relationship with product
     shop = models.ForeignKey(Shop, related_name='shop_products',
@@ -61,9 +62,15 @@ class Product(models.Model):
     @property
     def compute_discounted_cost(self):
         """Returns the cost of a product after computing the rate of discount on the original cost"""
-        convert_rate = self.discount_rate/100
-        discount = self.cost - (convert_rate * self.cost)
-        return discount
+        convert_rate = decimal.Decimal(self.discount_rate / 100)
+        print(convert_rate, end= ' ')
+        print(self.cost)
+        discount_amount = convert_rate * self.cost
+        print(discount_amount)
+        amount_payable = round((self.cost - discount_amount), 2)
+        print(amount_payable)
+        return amount_payable
+    
     @property
     def sectionBelongsToShop(self) -> True or ValueError:
         """Checks if a section is associated with this shop"""
@@ -102,9 +109,12 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         """Overrides the save method and saves a product"""
 
+        self.status = 'in-stock'
         if self.quantity == 0:
             self.status = 'out-of-stock'
-        self.status = 'in-stock'
+
+        if self.discount_amount == 0.00 and self.discount_rate >= 0:
+            self.discount_amount = self.compute_discounted_cost
 
         # before i save i need to know whether
         # or not the section accepts only
