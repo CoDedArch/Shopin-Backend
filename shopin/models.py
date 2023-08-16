@@ -107,7 +107,9 @@ class Section(models.Model):
                 f"only products:{self.contains_products_only}")
 
     @property
-    def contains_products_only(self):
+    def contains_products_only(self) -> bool:
+        """Checks if a section contains only products"""
+        
         return not self.contains_category
 
     def save(self, *args, **kwargs):
@@ -123,7 +125,7 @@ class Category(models.Model):
     # read more into working with image field
     image = models.ImageField(upload_to=upload_image_to, null=True, blank=True)
     wants_subcategory = models.BooleanField(default=False)
-    section = models.ForeignKey(Section, on_delete=models.CASCADE, null=True)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f'category-{self.name}'
@@ -135,16 +137,19 @@ class Category(models.Model):
         return True
 
     def save(self, *args, **kwargs):
-        if self.section.shop.title == self.shop.title:
-            if self.section.contains_category:
-                # i need to make sure that the category contains images
-                if not self.categoryContainsImage:
-                    raise ValueError('Ensure that category contains an image')
-                super().save(*args, **kwargs)
+        if self.section:
+            if self.section.shop.title == self.shop.title:
+                if self.section.contains_category:
+                    # i need to make sure that the category contains images
+                    if not self.categoryContainsImage:
+                        raise ValueError('Ensure that category contains an image')
+                    super().save(*args, **kwargs)
+                else:
+                    raise ValueError('Section should accept category before it can be saved')
             else:
-                raise ValueError('Section should accept category before it can be saved')
+                raise ValueError('You must select a section inside a shop')
         else:
-            raise ValueError('You must select a section inside a shop')
+            super().save(*args, **kwargs)
 
 
 class SubCategory(models.Model):
