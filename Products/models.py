@@ -36,7 +36,8 @@ class Product(models.Model):
     issponsored = models.BooleanField(default=False)
     image = models.ImageField(upload_to=upload_product_image)
     discount_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, default= 0.00, verbose_name='amount payable after discount')
-    discount_rate = models.PositiveSmallIntegerField(null=True, default=0.00)
+    discount_rate = models.PositiveSmallIntegerField(null=True, default=0)
+    # if a customer has a coupon, he or she can purchase the product at the discount rate
     # has a relationship with product
     shop = models.ForeignKey(Shop, related_name='shop_products',
                              on_delete=models.CASCADE)
@@ -54,10 +55,12 @@ class Product(models.Model):
     subcategory = models.ForeignKey('shopin.Subcategory',
                                     on_delete=models.CASCADE,
                                     null=True, blank=True)
-    brand = models.ForeignKey('Brand', on_delete=models.CASCADE, null=True)
+    brand = models.ForeignKey('Brand', on_delete=models.CASCADE, null=True, blank=True)
+    # products will relate to a coupon
+    coupon = models.OneToOneField('Coupon', on_delete=models.CASCADE, null= True, blank=True)
 
     def __str__(self) -> str:
-        return (f'product - {self.name}')
+        return (f'product - {self.name}-{self.shop.title}')
 
     @property
     def compute_discounted_cost(self):
@@ -177,3 +180,11 @@ class Order(models.Model):
         return (f'{self.customer.first_name} - Order')
     
 
+class Coupon(models.Model):
+    title = models.CharField(max_length=30, default='weekend bonanza', verbose_name='title on coupon')
+    coupon_rate = models.PositiveSmallIntegerField(default=0)
+    expiry_date = models.DateField()
+
+    def __str__(self) -> str:
+        return (f'coupon({self.title})-{self.coupon_rate}')
+    
