@@ -22,9 +22,14 @@
          
             <div class="bg-slate-300 mt-[20px]">
                 <!-- This is the discounted amount -->
-                <div class="inline-block text-2xl font-bold bg-blue-400">GHC{{details.cost}}</div>
-                <div class="inline-block bg-orange-100 rounded-md p-1 text-orange-400 text-[18px] ml-[20px] w-[50px] h-[30px] text-center">50%</div>
-                <p class="text-sm text-red-600 line-through font-semibold">GHC 200.00</p>
+                <div class="inline-block text-2xl font-bold bg-blue-400">
+                    GHC
+                    {%if details.discount_rate%} {{details.discount_amount}} {%else%} {{details.cost}}{%endif%}
+                </div>
+                {%if details.discount_rate%}
+                <div class="inline-block bg-orange-100 rounded-md p-1 text-orange-400 text-[18px] ml-[20px] w-[50px] h-[30px] text-center">{{details.discount_rate}}%</div>
+                <p class="text-sm text-red-600 line-through font-semibold">Ghc {{details.cost}}</p>
+                {%endif%}
             </div>
             
             <div class="mt-10 p-1 flex flex-row justify-center"> 

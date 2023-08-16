@@ -9,22 +9,22 @@
         <section class="mt-3">
             {%for product in products%}
                 <div class="bg-slate-600 p-3 mb-3 h-[17em] flex flex-row space-x-2">
-                    <div class="bg-pink-200 min-w-[260px]">{{product.image}}</div>
+                    <div class="bg-pink-200 min-w-[260px] max-w-[300px]">{{product.image}}</div>
                     <div class="bg-white basis-[49em] p-2 flex-auto">
-                        {%if product.sponsored%}
+                        {%if product.issponsored%}
                             <p class="m-0 text-sm text-blue-600">Sponsored!!</p>
                         {%endif%}
-                        <p class="mb-3">{{product.description}}</p>
+                        <p class="mb-3">{{product.shortdescription}}</p>
                         <p>{{product.rating}}--{{product.total_rating}}</p>
-                        <p>{%if product.discounted_amount%}
-                                <span class="text-2xl text-green-600">{{product.discounted_amount}}</span> 
-                                <span>Ori price: <span class="line-through text-red-600 bg-orange-100 font-bold">{{product.price}}</span></span>
+                        <p>{%if product.discount_rate%}
+                                <span class="text-2xl text-green-600">Ghc {{product.discount_amount}}</span> 
+                                <span>Ori price: <span class="line-through text-red-600 bg-orange-100 font-bold">ghc {{product.cost}}</span></span>
                             {%else%}
-                            <span class="text-green-500 text-2xl">{{product.price}}</span>
+                            <span class="text-green-500 text-2xl">Ghc {{product.cost}}</span>
                             {%endif%}
                             <br>
                             {%if product.coupon%}
-                                <span class="bg-green-300 p-[3px]">Save {{product.coupon}}</span> with Coupon
+                                <span class="bg-green-300 p-[3px]">Save {{product.coupon.coupon_rate}}%</span> with <span class="text-red-300 font-semibold"> {{product.coupon.title}}</span>
                             {%endif%}
                         </p>
                         <p class="text-sm">{{product.Delivery}}</p>
