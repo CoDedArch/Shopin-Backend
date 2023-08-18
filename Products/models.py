@@ -16,6 +16,10 @@ class Brand(models.Model):
         return ('Brand: %s'%(self.brand))
 
 
+class Description(models.Model):
+    title = models.CharField(max_length=40, verbose_name='description title' )
+    body = models.TextField(max_length=250)
+
 class Product(models.Model):
     """Model for a Product object"""
 
@@ -23,8 +27,8 @@ class Product(models.Model):
     shortdescription = models.TextField(max_length=300,
                                         verbose_name="product short " +
                                         "description")
-    longdescription = models.TextField(max_length=3000,
-                                       verbose_name="product long description")
+    # longdescription = models.TextField(max_length=3000,
+    #                                    verbose_name="product long description")
     cost = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=100,
                               verbose_name='product status',
@@ -58,6 +62,8 @@ class Product(models.Model):
     brand = models.ForeignKey('Brand', on_delete=models.CASCADE, null=True, blank=True)
     # products will relate to a coupon
     coupon = models.OneToOneField('Coupon', on_delete=models.CASCADE, null= True, blank=True)
+
+    description = models.ForeignKey(Description, on_delete= models.CASCADE, null= True)
 
     def __str__(self) -> str:
         return (f'product - {self.name}-{self.shop.title}')
