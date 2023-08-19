@@ -15,7 +15,10 @@
             </div>
         </div>
         <div class="bg-pink-400 p-3 w-[661px]">
-            <p class="text-orange-300 font-bold">{{details.shop.title}} SHOP</p>
+            <div class="flex flex-row justify-between">
+                <div class="text-orange-300 font-bold"> {{details.shop.title}} SHOP </div>
+                <div class="">Rating here</div>
+            </div>
             <p class="bg-blue-400"><span class="font-bold text-2xl">{{details.name |title}}</span> <br> 
                 <pre class="text-sm">Brand| <span class="">{{details.brand.brand}}</span></pre></p>
             <p class="bg-slate-600 text-white mt-[20px] {%if details.shortdescription|length > 100%} text-sm {%else%}text-md{%endif%}">{{details.shortdescription |title}}</p>
@@ -69,7 +72,19 @@
             </div>
             <div>
                 <!-- About the product -->
+                <p class="text-center bg-blue-600 text-2xl underline">About This product</p>
+                <div class="p-14 bg-black-500 max-w-[30em]">
+                    {%for about in details.aboutproduct_set.all%}
+                        <ul class="list-disc">
+                            <li><span class="text-orange-300"> {{about.subject}} </span> - <span class="text-slate-400"> {{about.content}}</span></li>
+                        </ul>
+                    {%endfor%}
+                    {%if details.note%} 
+                        <p class="mt-3"><span class="font-bold">note: </span>{{details.note}}</p>
+                    {%endif%}
+                </div>
             </div>
         </div>
     </section>
+
 {%endblock%}
