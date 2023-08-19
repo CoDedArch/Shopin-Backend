@@ -51,6 +51,8 @@ class ProductDetailView(View):
         """Return a Template with the details of a product"""        
         product = Product.objects.get(name = product_name)
 
+        # generate product specification information
+        
         return render(request=request, template_name='products/product_details.html',
                       context={'shop': shop_name,
                                 'details': product,

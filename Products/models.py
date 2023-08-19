@@ -16,6 +16,23 @@ class Brand(models.Model):
         return ('Brand: %s'%(self.brand))
 
 
+
+class Features(models.Model):
+    content = models.CharField(max_length=255)
+    Specification = models.ForeignKey('Specification', on_delete=models.CASCADE, null=True)
+
+    def __str__(self) -> str:
+        return ('Features: %s'%(self.Specification))
+    
+
+
+class Specification(models.Model):
+    title = models.CharField(max_length = 100)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, null=True)
+    def __str__(self) -> str:
+        return ('Specification: %s'%self.title)
+
+
 class Description(models.Model):
     title = models.CharField(max_length=100, verbose_name='description title' )
     body = models.TextField(max_length=550)
@@ -23,6 +40,8 @@ class Description(models.Model):
 
     def __str__(self) -> str:
         return (f'description: {self.title} --related to {self.product}')
+
+
 
 class Product(models.Model):
     """Model for a Product object"""
@@ -40,6 +59,7 @@ class Product(models.Model):
     quantity = models.IntegerField(default=1,
                                    verbose_name='product quantity')
     warrantyears = models.IntegerField(blank=True, default=0)
+    warranty_and_support = models.TextField(max_length=550, null=True)
     created_date = models.DateField(auto_now_add=True)
     issponsored = models.BooleanField(default=False)
     image = models.ImageField(upload_to=upload_product_image)

@@ -43,8 +43,33 @@
         </div>
     </section>
     <!-- details and specification section -->
-    <section class="bg-blue-400 mt-[20px] grid grid-cols-2 gap-5 h-[50em] mx-[20px]">
-        <div class="text-center bg-blue-600 text-lg"><span class="underline"> Details </span></div>
-        <div class="text-center bg-blue-600 text-lg"><span class="underline"> Specification</span></div>
+    <section class="bg-blue-400 mt-[20px] grid grid-cols-2 gap-5 mx-[20px]">
+        <div >
+            <p class="text-center bg-blue-600 text-2xl"> <span class="underline">Product Details </span></p>
+            {%for content in details.description_set.all%}
+                <div class="bg-pink-400">
+                    <p class="p-3 font-bold text-lg">{{content.title |title}}</p>
+                    <p class="p-3 font-semibold">{{content.body}}</p>
+                </div>
+            {%endfor%}
+        </div>
+        <div >      
+            <p class="text-center bg-blue-600 text-2xl"><span class="underline">Product Specification</span></p>
+            <div class="flex flex-col p-14">
+                {%for specification in details.specification_set.all%}
+                    <div class="bg-slate-200 mb-5">
+                        <p class="bg-black-500 font-bold text-white">{{specification.title}}</p>
+                        <ul class="list-disc">
+                            {%for feature in specification.features_set.all%}
+                                <li>{{feature.content}}</li>
+                            {%endfor%}
+                        </ul>
+                    </div>
+                {%endfor%}
+            </div>
+            <div>
+                <!-- About the product -->
+            </div>
+        </div>
     </section>
 {%endblock%}
