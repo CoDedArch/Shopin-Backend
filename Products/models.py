@@ -17,8 +17,12 @@ class Brand(models.Model):
 
 
 class Description(models.Model):
-    title = models.CharField(max_length=40, verbose_name='description title' )
-    body = models.TextField(max_length=250)
+    title = models.CharField(max_length=100, verbose_name='description title' )
+    body = models.TextField(max_length=550)
+    product = models.ForeignKey('Product',on_delete=models.CASCADE,null=True)
+
+    def __str__(self) -> str:
+        return (f'description: {self.title} --related to {self.product}')
 
 class Product(models.Model):
     """Model for a Product object"""
@@ -62,8 +66,6 @@ class Product(models.Model):
     brand = models.ForeignKey('Brand', on_delete=models.CASCADE, null=True, blank=True)
     # products will relate to a coupon
     coupon = models.OneToOneField('Coupon', on_delete=models.CASCADE, null= True, blank=True)
-
-    description = models.ForeignKey(Description, on_delete= models.CASCADE, null= True)
 
     def __str__(self) -> str:
         return (f'product - {self.name}-{self.shop.title}')
