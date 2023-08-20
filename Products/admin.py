@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import (Product, ShoppingCart, Order, Brand, Coupon, Description, Specification, Features)
+from .models import (Product, ShoppingCart, Order, Brand, Coupon, Description, Specification, Features, AboutProduct)
 # Register your models here.
 
 class ProductAdmin(admin.ModelAdmin):
-    pass
+    filter_horizontal = ('related_products',)
 
 class ShoppingCartAdmin(admin.ModelAdmin):
     pass
@@ -27,3 +27,4 @@ admin.site.register(Coupon, CouponAdmin)
 admin.site.register(Description)
 admin.site.register(Specification)
 admin.site.register(Features)
+admin.site.register(AboutProduct)
