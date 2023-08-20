@@ -48,7 +48,7 @@
     <!-- details and specification section -->
     <section class="bg-blue-400 mt-[20px] grid grid-cols-2 gap-5 mx-[20px]">
         <div >
-            <p class="text-center bg-blue-600 text-2xl"> <span class="underline">Product Details </span></p>
+            <p class="text-center bg-blue-600 text-2xl"> <span class="underline font-semibold">Product Details </span></p>
             {%for content in details.description_set.all%}
                 <div class="bg-pink-400">
                     <p class="p-3 font-bold text-lg">{{content.title |title}}</p>
@@ -57,7 +57,7 @@
             {%endfor%}
         </div>
         <div >      
-            <p class="text-center bg-blue-600 text-2xl"><span class="underline">Product Specification</span></p>
+            <p class="text-center bg-blue-600 text-2xl"><span class="underline font-semibold">Product Specification</span></p>
             <div class="flex flex-col p-14">
                 {%for specification in details.specification_set.all%}
                     <div class="bg-slate-200 mb-5">
@@ -72,7 +72,7 @@
             </div>
             <div>
                 <!-- About the product -->
-                <p class="text-center bg-blue-600 text-2xl underline">About This product</p>
+                <p class="text-center bg-blue-600 text-2xl underline font-bold">About This product</p>
                 <div class="p-14 bg-black-500 max-w-[30em]">
                     {%for about in details.aboutproduct_set.all%}
                         <ul class="list-disc">
@@ -80,11 +80,39 @@
                         </ul>
                     {%endfor%}
                     {%if details.note%} 
-                        <p class="mt-3"><span class="font-bold">note: </span>{{details.note}}</p>
+                        <p class="mt-3 text-white"><span class="font-bold">note: </span>{{details.note}}</p>
                     {%endif%}
                 </div>
             </div>
         </div>
     </section>
+    {%if details.has_related_products%}
+    <section class="bg-blue-400 mt-[20px] mx-[20px]">
+        <!-- this is for the related products -->
+        <p class="p-1 font-bold text-2xl">Related Products</p>
+        <div class="flex flex-row space-x-2 mt-5 p-2">
+            {%for product in details.related_products.all%}
+                <div class="bg-black-500 h-fit w-[16em] grid grid-cols-1 rounded-xl transition hover:shadow-xl">
+                    <div class="bg-slate-400 h-[9rem] rounded-t-lg">{{product.image}}</div>
+                    <div class=" p-3">
+                        <p class="text-orange-400 text-sm mt-0">{{product.shortdescription|truncatechars:98}}</p>
+                        <p class="text-red-300 mt-1">Rating</p>
+                        {%if product.discount_rate%}
+                        <div class="text-green-600 inline-block font-bold">Ghc {{product.discount_amount}}</div>
+                        <div class="text-green-600 inline-block bg-orange-100 rounded-md font-semibold p-[2px]">{{product.discount_rate}}% <span class="text-sm">discount applied</span><span class="text-red-600 line-through"> Ghc{{product.cost}}</span></div>
+                        {%else%}
+                            <p class="text-green-600">Ghc {{product.cost}}</p>                            
+                        {%endif%}
+                        {%if product.coupon%}
+                        <div class="mt-[5px]">
+                            <span class="bg-green-300 p-[3px]">Save {{product.coupon.coupon_rate}}%</span><span class="text-white"> with</span><span class="text-red-300 font-semibold"> {{product.coupon.title}}</span>
+                        </div>
+                        {%endif%}
+                    </div>
+                </div>
+            {%endfor%}
+        </div>
+    </section>
+    {%endif%}
 
 {%endblock%}
