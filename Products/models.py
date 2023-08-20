@@ -32,6 +32,14 @@ class Specification(models.Model):
     def __str__(self) -> str:
         return ('Specification: %s'%self.title)
 
+class AboutProduct(models.Model):
+    subject = models.CharField(max_length=100, verbose_name='subject of the product', null=True)
+    content = models.TextField(max_length=500, verbose_name='more about the product')
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return (f'{self.subject} -- {self.product}')
+
 
 class Description(models.Model):
     title = models.CharField(max_length=100, verbose_name='description title' )
@@ -50,6 +58,7 @@ class Product(models.Model):
     shortdescription = models.TextField(max_length=300,
                                         verbose_name="product short " +
                                         "description")
+    note = models.TextField(max_length=500, verbose_name='what users should be concerned with', null=True)
     # longdescription = models.TextField(max_length=3000,
     #                                    verbose_name="product long description")
     cost = models.DecimalField(max_digits=10, decimal_places=2)
@@ -86,9 +95,17 @@ class Product(models.Model):
     brand = models.ForeignKey('Brand', on_delete=models.CASCADE, null=True, blank=True)
     # products will relate to a coupon
     coupon = models.OneToOneField('Coupon', on_delete=models.CASCADE, null= True, blank=True)
+    related_products = models.ManyToManyField('self', blank=True, symmetrical=False)
 
     def __str__(self) -> str:
         return (f'product - {self.name}-{self.shop.title}')
+
+    @property
+    def has_related_products(self):
+        if self.related_products.exists:
+            return True
+        return False
+    
 
     @property
     def compute_discounted_cost(self):
@@ -215,4 +232,3 @@ class Coupon(models.Model):
 
     def __str__(self) -> str:
         return (f'coupon({self.title})-{self.coupon_rate}')
-    
