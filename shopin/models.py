@@ -4,6 +4,8 @@
 """
 from django.db import models
 from pathlib import Path
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 import random
 import csv
 
@@ -85,7 +87,7 @@ def upload_image_to(instance, filename):
     if instance.__class__.__name__ == 'Category':
         return 'images/category/%s/%s' % (instance.name, filename)
     elif instance.__class__.__name__ == 'SubCategory':
-        return 'images/subcategory/%s/%s' % (instance.name, filename)
+        return 'images/subcategory/thumbnail/%s/%s' % (instance.name, filename)
 
 # have the many relationship
 
@@ -123,7 +125,10 @@ class Category(models.Model):
     name = models.CharField(max_length=60,
                             verbose_name='Category')
     # read more into working with image field
-    image = models.ImageField(upload_to=upload_image_to, null=True, blank=True)
+    image = ProcessedImageField(upload_to = upload_image_to,
+                                processors=[ResizeToFill(430,385)],
+                                format='JPEG',
+                                options={'quality':70}, null=True)
     wants_subcategory = models.BooleanField(default=False)
     section = models.ForeignKey(Section, on_delete=models.CASCADE, null=True, blank=True)
 
@@ -155,7 +160,10 @@ class Category(models.Model):
 class SubCategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
-    image = models.ImageField(upload_to=upload_image_to)
+    image = ProcessedImageField(upload_to=upload_image_to,
+                                processors=[ResizeToFill(200,140)],
+                                format='JPEG',
+                                options={'quality':70})
 
     def __str__(self) -> str:
         return self.name

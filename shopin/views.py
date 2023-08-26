@@ -248,6 +248,8 @@ class SingleShopView(View):
         section = shop.section_set.all()
         for sec in section:
             print(sec.category_set.all())
+            if sec.contains_products_only:
+                print ('true')
             # if sec.contains_category:
             #     for category in sec.category.all():
             #         print(category)
