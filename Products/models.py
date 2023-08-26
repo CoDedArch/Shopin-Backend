@@ -1,6 +1,8 @@
 from django.db import models
 from shopin.models import Shop
 import decimal
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 
 # Create your models here.
 def upload_product_image(instance, filename):
@@ -58,7 +60,8 @@ class Product(models.Model):
     shortdescription = models.TextField(max_length=300,
                                         verbose_name="product short " +
                                         "description")
-    note = models.TextField(max_length=500, verbose_name='what users should be concerned with', null=True)
+    note = models.TextField(max_length=500, verbose_name='what users should be concerned with',
+                            null=True, blank=True)
     # longdescription = models.TextField(max_length=3000,
     #                                    verbose_name="product long description")
     cost = models.DecimalField(max_digits=10, decimal_places=2)
@@ -68,10 +71,13 @@ class Product(models.Model):
     quantity = models.IntegerField(default=1,
                                    verbose_name='product quantity')
     warrantyears = models.IntegerField(blank=True, default=0)
-    warranty_and_support = models.TextField(max_length=550, null=True)
+    warranty_and_support = models.TextField(max_length=550, null=True, blank=True)
     created_date = models.DateField(auto_now_add=True)
     issponsored = models.BooleanField(default=False)
-    image = models.ImageField(upload_to=upload_product_image)
+    image = ProcessedImageField(upload_to = upload_product_image,
+                                processors= [ResizeToFill(300,260)],
+                                format='JPEG',
+                                options={'quality': 70}, null=True)
     discount_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, default= 0.00, verbose_name='amount payable after discount')
     discount_rate = models.PositiveSmallIntegerField(null=True, default=0)
     # if a customer has a coupon, he or she can purchase the product at the discount rate
