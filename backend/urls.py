@@ -16,10 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import re_path, include
-
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     re_path(r'admin/', admin.site.urls),
     re_path(r'shopin/', include('shopin.urls')),
     re_path(r'__reload__/', include('django_browser_reload.urls')),
     re_path(r'products/(?P<shop_name>\w+)/', include('Products.urls'))
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
