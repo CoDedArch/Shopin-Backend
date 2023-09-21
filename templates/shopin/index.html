@@ -7,27 +7,13 @@ j
 
 {%block logo%}<span class=" font-bold text-2xl text-green-500"> SHOPIN </span>{%endblock%}
 {%block content%}
-<div class="bg-black-400 flex xl:m-10 space-x-4 flex-wrap p-[10px] justify-center">
+<div class="bg-black-400 flex xl:m-10 flex-wrap justify-left space-y-4 pt-2 pl-2">
     {% for shop in top_rated %}
     <!-- change of business logic. This div is to show list of only 5 rated -->
-        <div class="grid grid-cols-2 bg-{{shop.color}}-400 basis-[356px] h-[421px] rounded-md p-[5px]">
-            <div class="bg-inherit font-bold text-white">
-                Picture url
-            </div>
-            <div class="bg-gray-400 grid grid-rows-2">
-                <p class="text-center font-bold">{{shop.title}}</p>
-                <div class="bg-black-400 text-white flex flex-row justify-center xl:mb-[0px]">
-                    {{shop.rating}}
-                </div>
-                <div class="">
-                    <p class="lg:mb-[5px] p-[4px] inline-block">{{shop.description}}</p>
-                </div>
-                <div class="bg-black-400 flex flex-col justify-center basis-1/2 p-[10px] ">
-                    <div class="bg-gray-400 rounded-md h-[40px] font-bold mb-[10px]">Functional</div>
-                    <div class="flex flex-row justify-center">
-                    <button class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:bg-green-500 h-[30px] w-[100px] font-bold rounded-md bg-white text-green-500 hover:text-black-400 hover:shadow-md hover:shadow-emerald-300">Shop</button><br>
-                    </div>
-                </div>
+        <div class="bg-{{shop.color}}-400 w-[50em] h-[421px] rounded-md">
+            <div class="text-center">
+                <!-- logo section -->
+                <p>LOGO</p>
             </div>
         </div>
     {% endfor %}

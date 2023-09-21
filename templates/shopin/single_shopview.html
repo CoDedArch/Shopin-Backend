@@ -4,7 +4,6 @@
 {%block content%}
 <!--each shop page would have it's individual sections-->
     {%for section in content.section_set.all%}
-    
         {%if section.contains_category%}
         <!-- convert into a flex box -->
             <section class="bg-black-400 mb-10 mx-[12em] justify-center max-w-[1441px] flex flex-row p-[10px] space-x-5">
