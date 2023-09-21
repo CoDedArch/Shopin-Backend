@@ -35,7 +35,7 @@ class Shop(models.Model):
     description = models.TextField(default='',
                                    verbose_name='SHP_Description',
                                    max_length=270)
-    location = models.CharField(max_length=30, default='',
+    location = models.CharField(max_length=50, default='',
                                 verbose_name='SHP_Location')
     rating = models.IntegerField(default=0,
                                  verbose_name='SHP_Rating')
