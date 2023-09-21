@@ -9,6 +9,16 @@ from imagekit.processors import ResizeToFill
 import random
 import csv
 
+def upload_image_to(instance, filename):
+    saveLocations = {
+        'category': 'images/category/%s/%s' % (instance.name, filename),
+        'subcategory': 'images/subcategory/%s/%s' % (instance.name, filename),
+        'shop': 'images/shop/%s/%s' % (instance.name, filename)
+    }
+    return (saveLocations.get(instance.__class__.__name__.lower(),
+                              f'images/extra/{filename}'))
+
+
 
 class Shop(models.Model):
     """
@@ -17,8 +27,11 @@ class Shop(models.Model):
     """
     PATH_TO_CSV = Path(__file__).resolve().parent.parent
     top_rated = []
-    title = models.CharField(max_length=100, default='',
+    name = models.CharField(max_length=100, default='',
                              verbose_name='SHP_Name')
+    email = models.EmailField(null=True)
+    contactLine = models.CharField(max_length=20, null=True,
+                                   verbose_name='contact')
     description = models.TextField(default='',
                                    verbose_name='SHP_Description',
                                    max_length=270)
@@ -29,13 +42,24 @@ class Shop(models.Model):
     color = models.CharField(max_length=20, default='black')
     moto = models.CharField(max_length=100,
                             verbose_name='SHP_Moto')
+    logo = ProcessedImageField(
+        upload_to = upload_image_to,
+        processors= [ResizeToFill(300, 300)],
+        format= 'JPEG',
+        options={'quality': 70},
+        null = True
+    )
 
     def __str__(self):
         # return the string representation for each repr
-        return self.title + '--' + self.location
+        return self.name + '--' + self.location
 
     __repr__ = __str__
 
+    @classmethod
+    def numberOfShops(cls):
+        return (len(cls.objects.all()))
+    
     @classmethod
     def instantiate_SHP_from_csv(cls):
         """This method will read from an CSV file and instantiate the obj"""
@@ -74,21 +98,17 @@ class Shop(models.Model):
         """randomly pick three top rated
            from the all top rated shop
         """
+        no_top_rated = 3
         three_random_top_rated_shop = []
         # i will have to make sure that this refreshes after a day is over
-        for count in range(3):
-            random_index = random.randint(0, 2)
-            three_random_top_rated_shop.append(cls.all_top_rated()[random_index])
+        if cls.numberOfShops() < no_top_rated:
+            three_random_top_rated_shop.extend(cls.objects.all())
+        else:
+            for count in range(no_top_rated):
+                random_index = random.randint(0, 2)
+                three_random_top_rated_shop.append(cls.all_top_rated()[random_index])
 
         return three_random_top_rated_shop
-
-
-def upload_image_to(instance, filename):
-    if instance.__class__.__name__ == 'Category':
-        return 'images/category/%s/%s' % (instance.name, filename)
-    elif instance.__class__.__name__ == 'SubCategory':
-        return 'images/subcategory/thumbnail/%s/%s' % (instance.name, filename)
-
 # have the many relationship
 
 
