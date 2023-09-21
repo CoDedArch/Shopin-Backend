@@ -1,4 +1,5 @@
 {% extends 'base/base.html'%}
+{%load static%}
 {%block advertisement%} 
 <!-- <div class="bg-black-400 flex xl:w-[200px]">
 j
@@ -7,13 +8,44 @@ j
 
 {%block logo%}<span class=" font-bold text-2xl text-green-500"> SHOPIN </span>{%endblock%}
 {%block content%}
-<div class="bg-black-400 flex xl:m-10 flex-wrap justify-left space-y-4 pt-2 pl-2">
+<div class="flex xl:m-10 flex-wrap justify-left space-y-4 p-4 h-fit">
     {% for shop in top_rated %}
     <!-- change of business logic. This div is to show list of only 5 rated -->
-        <div class="bg-{{shop.color}}-400 w-[50em] h-[421px] rounded-md">
-            <div class="text-center">
+        <div class="bg-black-500 bg-opacity-20 w-[50em] h-[421px] rounded-md p-1">
+            <div class="flex flex-row justify-center">
                 <!-- logo section -->
-                <p>LOGO</p>
+                <div class="inline-block w-[15em] ml-[20em]">
+                    <img src="{{shop.logo.url}}" alt="shop_logo" class="rounded-[20em] h-[11em]">
+                </div>
+                <div class="inline-block w-[15em]">
+                    <img src="{%static 'medal.png'%}" alt="" class="ml-[12em]">
+                </div>
+            </div>
+            <p class="text-center font-bold text-3xl">{{shop.name |upper}}</p>
+            <div class="grid grid-cols-2 gap-x-[13em]"> 
+                <div class="h-[3em] flex flex-row p-2 pl-[5em]">
+                    <div class="inline-block"><img src="{%static 'phone.png'%}" alt="call" class="w-7"></div>
+                    <div class="inline-block p-1 pl-4 font-semibold font-sans">{{shop.contactLine}}</div> 
+                </div>
+                <div class="h-[3em] flex flex-row p-2">
+                    <div class="inline-block"><img src="{%static 'mail.png'%}" alt="call" class="w-7"></div>
+                    <div class="inline-block p-1 pl-4 font-semibold font-sans">{{shop.email}}</div>
+                </div>
+                <div class="h-[3em]">
+                    <details>
+                        <summary class="font-mono text-xl p-2 pl-[5em]">
+                            About Shop
+                        </summary>
+                        <p class="bg-black-500 bg-opacity-30 font-mono text-xl ml-[5em] w-[20em] rounded-md">{{shop.description}}</p>
+                    </details>
+                </div>
+                <div class="h-[3em] flex flex-row p-2">
+                    <div class="inline-block "><img src="{%static 'location.png'%}" alt="call" class="w-7"></div>
+                    <div class="inline-block p-1 pl-4 ">{{shop.location}}</div>
+                </div>
+            </div>
+            <div>
+                <button class="right ml-[40em] mt-[3em] bg-green-500 h-10 w-[9em] rounded-md flex p-2 font-mono font-semibold pl-6">SHOP NOW <img src="{%static 'rightarrow.png'%}" alt="" class="ml-1 w-6"></button>
             </div>
         </div>
     {% endfor %}
