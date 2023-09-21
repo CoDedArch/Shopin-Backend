@@ -12,7 +12,8 @@ def upload_product_image(instance, filename):
 
 
 class Brand(models.Model):
-    brand = models.CharField(max_length=100, verbose_name='brand_name')
+    brand = models.CharField(max_length=100,
+                             verbose_name='brand_name')
 
     def __str__(self) -> str:
         return ('Brand: %s'%(self.brand))
@@ -21,7 +22,9 @@ class Brand(models.Model):
 
 class Features(models.Model):
     content = models.CharField(max_length=255)
-    Specification = models.ForeignKey('Specification', on_delete=models.CASCADE, null=True)
+    Specification = models.ForeignKey('Specification',
+                                      on_delete=models.CASCADE,
+                                      null=True)
 
     def __str__(self) -> str:
         return ('Features: %s'%(self.Specification))
@@ -30,13 +33,18 @@ class Features(models.Model):
 
 class Specification(models.Model):
     title = models.CharField(max_length = 100)
-    product = models.ForeignKey('Product', on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey('Product',
+                                on_delete=models.CASCADE,
+                                null=True)
     def __str__(self) -> str:
         return ('Specification: %s'%self.title)
 
 class AboutProduct(models.Model):
-    subject = models.CharField(max_length=100, verbose_name='subject of the product', null=True)
-    content = models.TextField(max_length=500, verbose_name='more about the product')
+    subject = models.CharField(max_length=100,
+                               verbose_name='subject of the product',
+                               null=True)
+    content = models.TextField(max_length=500,
+                               verbose_name='more about the product')
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
 
     def __str__(self) -> str:
@@ -44,9 +52,12 @@ class AboutProduct(models.Model):
 
 
 class Description(models.Model):
-    title = models.CharField(max_length=100, verbose_name='description title' )
+    title = models.CharField(max_length=100,
+                             verbose_name='description title' )
     body = models.TextField(max_length=550)
-    product = models.ForeignKey('Product',on_delete=models.CASCADE,null=True)
+    product = models.ForeignKey('Product',
+                                on_delete=models.CASCADE,
+                                null=True)
 
     def __str__(self) -> str:
         return (f'description: {self.title} --related to {self.product}')
@@ -60,7 +71,8 @@ class Product(models.Model):
     shortdescription = models.TextField(max_length=300,
                                         verbose_name="product short " +
                                         "description")
-    note = models.TextField(max_length=500, verbose_name='what users should be concerned with',
+    note = models.TextField(max_length=500,
+                            verbose_name='what users should be concerned with',
                             null=True, blank=True)
     # longdescription = models.TextField(max_length=3000,
     #                                    verbose_name="product long description")
@@ -71,14 +83,20 @@ class Product(models.Model):
     quantity = models.IntegerField(default=1,
                                    verbose_name='product quantity')
     warrantyears = models.IntegerField(blank=True, default=0)
-    warranty_and_support = models.TextField(max_length=550, null=True, blank=True)
+    warranty_and_support = models.TextField(max_length=550,
+                                            null=True,
+                                            blank=True)
     created_date = models.DateField(auto_now_add=True)
     issponsored = models.BooleanField(default=False)
     image = ProcessedImageField(upload_to = upload_product_image,
                                 processors= [ResizeToFill(300,260)],
                                 format='JPEG',
                                 options={'quality': 70}, null=True)
-    discount_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, default= 0.00, verbose_name='amount payable after discount')
+    discount_amount = models.DecimalField(max_digits=10,
+                                          decimal_places=2,
+                                          null=True,
+                                          default= 0.00,
+                                          verbose_name='amount payable after discount')
     discount_rate = models.PositiveSmallIntegerField(null=True, default=0)
     # if a customer has a coupon, he or she can purchase the product at the discount rate
     # has a relationship with product
@@ -98,10 +116,16 @@ class Product(models.Model):
     subcategory = models.ForeignKey('shopin.Subcategory',
                                     on_delete=models.CASCADE,
                                     null=True, blank=True)
-    brand = models.ForeignKey('Brand', on_delete=models.CASCADE, null=True, blank=True)
+    brand = models.ForeignKey('Brand',
+                              on_delete=models.CASCADE,
+                              null=True, blank=True)
     # products will relate to a coupon
-    coupon = models.OneToOneField('Coupon', on_delete=models.CASCADE, null= True, blank=True)
-    related_products = models.ManyToManyField('self', blank=True, symmetrical=False)
+    coupon = models.OneToOneField('Coupon',
+                                  on_delete=models.CASCADE,
+                                  null= True, blank=True)
+    related_products = models.ManyToManyField('self',
+                                              blank=True,
+                                              symmetrical=False)
 
     def __str__(self) -> str:
         return (f'product - {self.name}-{self.shop.title}')
@@ -175,8 +199,9 @@ class Product(models.Model):
         # products and whether or not the section
         # belongs to the given shop
         if self.section:
-            if self.sectionBelongsToShop and self.sectionAcceptsProductOnly:
-                super().save(*args, **kwargs)
+            if self.sectionBelongsToShop \
+                and self.sectionAcceptsProductOnly:
+                    super().save(*args, **kwargs)
             else:
                 raise ValueError('Section does not accept only products')
         if self.category:
@@ -232,7 +257,9 @@ class Order(models.Model):
     
 
 class Coupon(models.Model):
-    title = models.CharField(max_length=30, default='weekend bonanza', verbose_name='title on coupon')
+    title = models.CharField(max_length=30,
+                             default='weekend bonanza',
+                             verbose_name='title on coupon')
     coupon_rate = models.PositiveSmallIntegerField(default=0)
     expiry_date = models.DateField()
 
